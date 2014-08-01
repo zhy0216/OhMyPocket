@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     "guardian",
     "easy_thumbnails",
     'account',
+    'api',
 )
 
 
@@ -104,7 +105,8 @@ AUTH_PROFILE_MODULE = 'account.UserProfile'
 USERENA_SIGNIN_REDIRECT_URL = '/account/%(username)s/'
 LOGIN_URL = '/account/signin/'
 LOGOUT_URL = '/account/signout/'
-
+USERENA_SIGNIN_AFTER_SIGNUP = True
+USERENA_ACTIVATION_REQUIRED = False
 
 
 

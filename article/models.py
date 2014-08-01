@@ -10,7 +10,8 @@ class Article(models.Model):
     title           = models.CharField(max_length=128)
     content         = models.TextField()
     primary         = models.BooleanField(default=False)
-    # user            = models.ForeignKey("User")
+    finished        = models.BooleanField(default=False)
+    user            = models.ForeignKey("User")
 
     def __unicode__(self):
         return "<RawArticle: %s>"%self.title
