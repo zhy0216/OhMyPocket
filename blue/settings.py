@@ -29,14 +29,27 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
 INSTALLED_APPS = (
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "userena", 
+    "guardian",
+    "easy_thumbnails",
+    'account',
 )
+
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -80,3 +93,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# some other stuff
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+ANONYMOUS_USER_ID = -1
+AUTH_PROFILE_MODULE = 'account.UserProfile'
+
+USERENA_SIGNIN_REDIRECT_URL = '/account/%(username)s/'
+LOGIN_URL = '/account/signin/'
+LOGOUT_URL = '/account/signout/'
+
+
+
+
+
+try:
+    from local_settings import *
+except:
+    pass
+
+
+
+
+
+
+
+
+
+
+
