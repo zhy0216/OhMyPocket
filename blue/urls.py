@@ -9,8 +9,10 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'blue.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+    url(r'^$', "web.views.index_view"),
     (r'^account/', include('userena.urls')),
     (r'^api/', include('api.urls')),
+    (r'^web/', include('web.urls')),
     url(r'^article/random$', "article.views.show_random_article")
 
     # url(r'^admin/', include(admin.site.urls)),

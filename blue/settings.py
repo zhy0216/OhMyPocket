@@ -43,10 +43,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
+    'web',
     "userena", 
     "guardian",
     "easy_thumbnails",
-    'account',
     'api',
     'article',
 )
@@ -114,6 +115,10 @@ LOGIN_URL = '/account/signin/'
 LOGOUT_URL = '/account/signout/'
 USERENA_SIGNIN_AFTER_SIGNUP = True
 USERENA_ACTIVATION_REQUIRED = False
+
+TEMPLATE_DIRS = (
+    BASE_DIR + '/templates/'
+)
 
 
 
