@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 '''
 primary means whether the article is the 
@@ -10,11 +11,14 @@ class Article(models.Model):
     title           = models.CharField(max_length=128)
     content         = models.TextField(default="")
     finished        = models.BooleanField(default=False)
-    user            = models.ForeignKey("User")
+    user            = models.ForeignKey(User)
 
     primary         = models.BooleanField(default=False)
     # only exist when primary is false
     primary_article = models.ForeignKey("Article", null=True, blank=True)
+
+    def defer_process(self):
+        pass
 
 
     def to_dict(self):
@@ -28,7 +32,7 @@ class Article(models.Model):
         return "<RawArticle: %s>"%self.title
 
 class UserReadArticle(models.Model):
-    user            = models.ForeignKey("User")
+    user            = models.ForeignKey(User)
     article         = models.ForeignKey("Article")
 
     def __unicode__(self):

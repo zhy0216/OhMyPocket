@@ -48,14 +48,21 @@ INSTALLED_APPS = (
     "easy_thumbnails",
     'account',
     'api',
+    'article',
 )
+
+if DEBUG:
+    INSTALLED_APPS += (
+        'django_extensions',
+
+    )
 
 
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
