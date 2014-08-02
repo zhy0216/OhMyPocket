@@ -18,7 +18,14 @@ class Article(models.Model):
     primary_article = models.ForeignKey("Article", null=True, blank=True)
 
     def defer_process(self):
-        pass
+        from readability.readability import Document
+        import urllib
+        html = urllib.urlopen(self.original_url).read()
+        self.content = Document(html).summary()
+        self.title = Document(html).short_title()
+        self.finished = True
+        self.save()
+
 
 
     def to_dict(self):
