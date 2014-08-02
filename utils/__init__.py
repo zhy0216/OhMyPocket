@@ -1,9 +1,9 @@
 from functools import wraps
-from redis import Redis
+from redis import Redis, StrictRedis
 from rq import Queue
 import ujson
 
-redis_conn = Redis()
+redis_conn = StrictRedis()
 # no args implies the default queue
 q = Queue(connection=redis_conn)
 
