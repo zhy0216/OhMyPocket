@@ -1,0 +1,30 @@
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Lato Light'), local('Lato-Light'), url(lato300.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(lato700.woff) format('woff');
+}
+
+body {
+    font:16px/1.5 Lato;
+    font-weight: 300;
+}
+
+#about-shower li {
+    position: absolute;
+    bottom: 0;
+}
+#nav-search {
+    border: none;
+    border-radius: 0px;
+    padding-left: 21px;
+    background: #eee;
+}
