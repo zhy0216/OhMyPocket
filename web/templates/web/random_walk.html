@@ -1,0 +1,17 @@
+{%extends "web/base.html"%}
+{%block content%}
+<div class="container-fluid">
+    <div class="entry">
+    <h1>{{article.title|safe}}
+        <small><small><small><small><a href="{{article.original_url}}">original link</a></small></small></small></small>
+    </h1>
+    <hr />
+    <div>{{article.content|safe}}</div>
+    <hr />
+</div>
+</div>
+{%endblock%}
+
+{%block extra_css%}
+<link rel="stylesheet" href="{{ STATIC_URL }}entry.css" />
+{%endblock%}
