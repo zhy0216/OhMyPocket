@@ -3,7 +3,7 @@ from django.http import Http404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-from article.models import Article
+from article.models import Article, UserPostArticle
 from utils import q, to_json, redis_conn, required_login
 from exceptions import ParseError
 
@@ -15,11 +15,11 @@ def add_article(request):
     if(url is None):
         raise ParseError("require url parameter")
 
-    article = Article(original_url=url, user=request.user)
-    article.save()
-
+    article, _ = Article.objects.get_or_create(original_url=url)
+    upa, created = UserPostArticle.objects.get_or_create(article=article, user=request.user)
     # post process in rq worker
-    q.enqueue(article.defer_process)
+    if created:
+        q.enqueue(upa.defer_process)
 
     return {}
 

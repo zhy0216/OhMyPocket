@@ -13,7 +13,6 @@ class Article(models.Model):
     title           = models.CharField(max_length=128)
     content         = models.TextField(default="")
     finished        = models.BooleanField(default=False)
-    user            = models.ForeignKey(User)
 
     primary         = models.BooleanField(default=False)
     # only exist when primary is false
@@ -22,24 +21,12 @@ class Article(models.Model):
 
     ALL_PRIMARY_IDS_KEY = "all-primary-article-id"
 
-    def defer_process(self):
-        from readability.readability import Document
-        import urllib
-        html = urllib.urlopen(self.original_url).read()
-        self.content = Document(html).summary()
-        self.title = Document(html).short_title()
-        self.primary = True # TODO
-        self.finished = True
-        redis_conn.sadd(Article.ALL_PRIMARY_IDS_KEY, self.id)
-        self.save()
 
     def _catch_image(self):
         # to crawl the image from internet
         # create a thumbnail version
 
         pass
-
-
 
     def to_dict(self):
         return {
@@ -51,9 +38,51 @@ class Article(models.Model):
     def __unicode__(self):
         return "<RawArticle: %s>"%self.title
 
-class UserReadArticle(models.Model):
+
+### user -- article relationship
+
+class UserArticleRelationship(models.Model):
     user            = models.ForeignKey(User)
     article         = models.ForeignKey("Article")
 
+    class Meta:
+        abstract = True
+        unique_together = ('user', 'article',)
+
+class UserPostArticle(UserArticleRelationship):
+
+    def defer_process(self):
+        from readability.readability import Document
+        import urllib
+        article  = self.article
+        if not article.finished:
+            html = urllib.urlopen(article.original_url).read()
+            article.content = Document(html).summary()
+            article.title = Document(html).short_title()
+            article.primary = True # TODO
+            article.finished = True
+            redis_conn.sadd(Article.ALL_PRIMARY_IDS_KEY, self.id)
+            article.save()
+
     def __unicode__(self):
-        return "<%s -> %s>"%(self.user, self.article)
+        return "[UserPostArticle: <%s -> %s>]"%(self.user, self.article)
+
+
+class UserReadArticle(UserArticleRelationship):
+
+    def __unicode__(self):
+        return "[UserReadArticle: <%s -> %s>]"%(self.user, self.article)
+
+
+class UserStarArticle(UserArticleRelationship):
+
+    def __unicode__(self):
+        return "[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
+
+
+
+
+
+
+
+
