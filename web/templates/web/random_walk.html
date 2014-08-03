@@ -6,8 +6,10 @@
         <small><small><small><small><a href="{{article.original_url}}">original link</a></small></small></small></small>
     </h1>
     <hr />
+    {%include "article/toolbar.html"%}
     <div>{{article.content|safe}}</div>
     <hr />
+    {%include "article/toolbar.html"%}
 </div>
 </div>
 {%endblock%}

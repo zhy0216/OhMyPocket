@@ -80,7 +80,14 @@ class UserStarArticle(UserArticleRelationship):
         return "[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
 
 
+class UserRemoveArticle(UserArticleRelationship):
+    '''this is used when user delete a article
+       recorded this data, might be useful
+    '''
 
+
+    def __unicode__(self):
+        return "[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
 
 
 
