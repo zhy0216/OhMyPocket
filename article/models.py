@@ -61,7 +61,7 @@ class UserPostArticle(UserArticleRelationship):
             article.title = Document(html).short_title()
             article.primary = True # TODO
             article.finished = True
-            redis_conn.sadd(Article.ALL_PRIMARY_IDS_KEY, self.id)
+            redis_conn.sadd(Article.ALL_PRIMARY_IDS_KEY, article.id)
             article.save()
 
     def __unicode__(self):
