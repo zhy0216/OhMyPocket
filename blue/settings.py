@@ -30,8 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 AUTHENTICATION_BACKENDS = (
-    'userena.backends.UserenaAuthenticationBackend',
-    'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -45,8 +43,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'account',
     'web',
-    "userena", 
-    "guardian",
     "easy_thumbnails",
     'api',
     'article',
@@ -117,7 +113,7 @@ USERENA_SIGNIN_AFTER_SIGNUP = True
 USERENA_ACTIVATION_REQUIRED = False
 
 TEMPLATE_DIRS = (
-    BASE_DIR + '/templates/'
+    BASE_DIR + '/templates/',
 )
 
 

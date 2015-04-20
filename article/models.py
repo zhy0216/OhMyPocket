@@ -36,7 +36,7 @@ class Article(models.Model):
         }
 
     def __unicode__(self):
-        return "<RawArticle: %s>"%self.title
+        return "<Article: %s>"%self.title
 
 
 ### user -- article relationship
@@ -50,6 +50,7 @@ class UserArticleRelationship(models.Model):
         unique_together = ('user', 'article',)
 
 class UserPostArticle(UserArticleRelationship):
+    # to inbox
 
     def defer_process(self):
         from readability.readability import Document
@@ -69,12 +70,14 @@ class UserPostArticle(UserArticleRelationship):
 
 
 class UserReadArticle(UserArticleRelationship):
+    # to archieve
 
     def __unicode__(self):
         return "[UserReadArticle: <%s -> %s>]"%(self.user, self.article)
 
 
 class UserStarArticle(UserArticleRelationship):
+    # to star
 
     def __unicode__(self):
         return "[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
@@ -84,6 +87,7 @@ class UserRemoveArticle(UserArticleRelationship):
     '''this is used when user delete a article
        recorded this data, might be useful
     '''
+    # to nothing only record this value
 
 
     def __unicode__(self):
