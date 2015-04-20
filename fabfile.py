@@ -22,7 +22,10 @@ def update_req():
         return
     local("pip freeze|grep -v distribute > %s/dev_requirements.txt" % CURRENT_PATH)
     
-    
-
+def watch_less():
+    """watch less"""
+    local('watchmedo shell-command --patterns="*.less" ' + 
+            "--recursive --command='lessc %s/web/static/style.less "%CURRENT_PATH +
+             "> %s/web/static/style.css'"%CURRENT_PATH )
     
     
