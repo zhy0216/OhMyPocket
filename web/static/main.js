@@ -1,0 +1,6 @@
+$(function(){
+
+
+    console.log('start')
+
+});

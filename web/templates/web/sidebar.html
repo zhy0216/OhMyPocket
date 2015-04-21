@@ -1,5 +1,6 @@
 <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
+
+    <ul class="sidebar-nav login-sidebar {% if not user.is_authenticated %}view-hide{% endif %}">
         <li class="sidebar-brand">
             <a href="#">
                 Random Read
@@ -9,29 +10,43 @@
         <input type="text" id="nav-search" class="form-control" placeholder="Search">
         </li>
         <li class="tab-item">
-            <a href="/web/random-walk">Random Walk</a>
+            <a href="#random-walk">Random Walk</a>
         </li>
         <li class="tab-item">
-            <a href="#">Inbox</a>
+            <a href="#inbox">Inbox</a>
         </li>
         <li class="tab-item">
-            <a href="#">My Stars</a>
+            <a href="#mystar">My Stars</a>
         </li>
         
         <li class="tab-item">
-            <a href="#">Archieve</a>
+            <a href="#archieve">Archieve</a>
         </li>
         <li>
             <a href="#">Logout</a>
         </li>
     </ul>
-<!-- 
-    <ul id="about-shower" class="sidebar-nav">
-        <li style="bottom:40px;">
-            <a href="#">github</a>
+    <ul class="sidebar-nav unlogin-sidebar {% if user.is_authenticated %}view-hide{% endif %}">
+        <li class="sidebar-brand">
+            <a href="#">
+                Random Read
+            </a>
         </li>
         <li>
-            <a href="#">about</a>
+        <input type="text" id="nav-search" class="form-control" placeholder="Search">
         </li>
-    </ul> -->
+        <li class="tab-item">
+            <a href="#random-walk">Random Walk</a>
+        </li>
+        <li class="tab-item">
+            <a href="#login">Login</a>
+        </li>
+        <li class="tab-item">
+            <a href="#register">Register</a>
+        </li>
+
+    </ul>
+
+
+
 </div>
