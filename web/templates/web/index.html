@@ -1,8 +1,8 @@
 {%extends "web/base.html"%}
 
 {%block content%}
-<div class="container-fluid"><div class="row">
-
+<div class="container-fluid"><div id="content" class="row">
+{%include 'web/view/login.html'%}
 
 
 </div></div>
@@ -11,7 +11,10 @@
 
 {%block extra_stuff%}
 <div class="view-container view-hide">
-{%include 'web/view/login.html'%}
+
+</div>
+
+<div class="template-container view-hide">
 
 
 </div>
