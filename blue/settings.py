@@ -35,7 +35,7 @@ AUTHENTICATION_BACKENDS = (
 
 
 INSTALLED_APPS = (
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -98,24 +98,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# some other stuff
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
-
-ANONYMOUS_USER_ID = -1
-AUTH_PROFILE_MODULE = 'account.UserProfile'
-
-USERENA_SIGNIN_REDIRECT_URL = '/account/%(username)s/'
-LOGIN_URL = '/account/signin/'
-LOGOUT_URL = '/account/signout/'
-USERENA_SIGNIN_AFTER_SIGNUP = True
-USERENA_ACTIVATION_REQUIRED = False
-
-TEMPLATE_DIRS = (
-    BASE_DIR + '/templates/',
-)
-
 
 
 

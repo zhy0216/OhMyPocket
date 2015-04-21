@@ -18,7 +18,6 @@ q = Queue(connection=redis_conn)
 from django.http import HttpResponse
 from api.exceptions import APIException, NotAuthenticated
 from django.http import Http404
-from blue.settings import ANONYMOUS_USER_ID
 def to_json(f):
     @wraps(f)
     def _decorator_func(*args, **kwargs):
