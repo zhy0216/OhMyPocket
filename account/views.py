@@ -34,6 +34,12 @@ def user_register(request):
 
 
 @to_json
+def check_user_login(request):
+    if request.user.is_authenticated():
+        return {"is_login": True}
+    return {"is_login": False}
+
+@to_json
 def user_logout(request):
     logout(request)
     return {}

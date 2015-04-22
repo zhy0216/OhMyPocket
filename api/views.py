@@ -23,7 +23,6 @@ def add_article(request):
 
     return {}
 
-@required_login
 def random_article(request):
     ''' put all primary article id to the redis
         redis[all] = set(1,2,3)
@@ -36,7 +35,6 @@ def random_article(request):
 
 
 @to_json
-@required_login
 def get_article_by_id(request, articleid):
     article = Article.objects.filter(id=articleid).first()
     if article is None:
