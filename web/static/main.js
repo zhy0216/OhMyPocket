@@ -44,11 +44,33 @@ $(function() {
             'register': 'register',
             'article/:articleid': 'showArticle',
             'random-walk': 'randomWalk',
+            'logout': 'logout',
         },
 
         login: function(){
             switchView('login-view');
             bindLoginEvent();
+        },
+
+        logout: function(){
+            $.post("/api/account/logout")
+             .done(function(data){
+                console.log(data);
+                router.navigate("random-walk", {trigger: true});
+            });
+        },
+
+        randomWalk: function(){
+            $.post("/api/article/random")
+             .done(function(data){
+                console.log(data);
+                // router.navigate("random-walk", {trigger: false});
+
+
+            }).error(function(){
+                console.log('random error catch')
+            });
+
         },
 
 

@@ -45,8 +45,7 @@ def required_login(f):
     @wraps(f)
     def _decorator_func(request, *args, **kwargs):
         print "request.user.id:%s"%request.user.id
-        if request.user.id is None or \
-                request.user.id == ANONYMOUS_USER_ID :
+        if request.user.id is None:
             raise NotAuthenticated("require login")
         return f(request, *args, **kwargs)
     return _decorator_func

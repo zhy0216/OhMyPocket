@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from utils import q, to_json, redis_conn, required_login
 from api.exceptions import AuthenticationFailed, ParseError
 # Create your views here.
@@ -33,7 +33,10 @@ def user_register(request):
     return {}
 
 
-
+@to_json
+def user_logout(request):
+    logout(request)
+    return {}
 
 
 

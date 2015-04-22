@@ -30,6 +30,7 @@ class Article(models.Model):
 
     def to_dict(self):
         return {
+            "id": str(self.id),
             "original_url": self.original_url,
             "title": self.title,
             "content": self.content,
