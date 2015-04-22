@@ -71,7 +71,7 @@ class UserPostArticle(UserArticleRelationship):
 
 
 class UserReadArticle(UserArticleRelationship):
-    # to archieve
+    # to nothing only record this value
 
     def __unicode__(self):
         return "[UserReadArticle: <%s -> %s>]"%(self.user, self.article)
@@ -88,7 +88,7 @@ class UserRemoveArticle(UserArticleRelationship):
     '''this is used when user delete a article
        recorded this data, might be useful
     '''
-    # to nothing only record this value
+    # to archieve
 
 
     def __unicode__(self):
