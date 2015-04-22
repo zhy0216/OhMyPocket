@@ -15,7 +15,11 @@
 </div>
 
 <div class="template-container view-hide">
-
+{% include 'web/view-template/article-shower.html' %}
 
 </div>
+{%endblock%}
+
+{%block extra_css%}
+<link rel="stylesheet" href="{{ STATIC_URL }}entry.css" />
 {%endblock%}

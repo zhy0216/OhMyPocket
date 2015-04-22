@@ -1,0 +1,14 @@
+<script id="article-shower-template" type="text/underscore-template">
+<div class="container-fluid">
+    <div class="entry">
+        <h1><%= article.title %>
+            <a class="original-link" href="<%= article.original_url %>">original link</a>
+        </h1>
+        <hr />
+        {%include "article/toolbar.html"%}
+        <div><%= article.content %></div>
+        <hr />
+        {%include "article/toolbar.html"%}
+    </div>
+</div>
+</script>

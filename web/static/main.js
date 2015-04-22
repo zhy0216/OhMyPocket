@@ -36,6 +36,11 @@ $(function() {
 
     });
 
+    var Article = Backbone.Model.extend({
+    });
+
+
+
     var router = new (Backbone.Router.extend({
 
         routes: {
@@ -61,14 +66,26 @@ $(function() {
         },
 
         randomWalk: function(){
+            var renderEngine = _.template($("#article-shower-template").html());
             $.post("/api/article/random")
              .done(function(data){
-                console.log(data);
-                // router.navigate("random-walk", {trigger: false});
-
-
+                var article = new Article(data);
+                $("#content").html(renderEngine({"article": article.attributes}))
+                router.navigate("article/" + article.get("id"), {trigger: false});
             }).error(function(){
-                console.log('random error catch')
+                console.log('random error catch');
+            });
+        },
+
+        showArticle: function(articleId){
+            var renderEngine = _.template($("#article-shower-template").html());
+            $.post("/api/article/" + articleId + "/")
+             .done(function(data){
+                var article = new Article(data);
+                $("#content").html(renderEngine({"article": article.attributes}))
+                router.navigate("article/" + article.get("id"), {trigger: false});
+            }).error(function(){
+                console.log('random error catch');
             });
 
         },
