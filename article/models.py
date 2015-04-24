@@ -56,8 +56,9 @@ class UserArticleRelationship(models.Model):
         unique_together = ('user', 'article',)
 
     @classmethod
-    def get_rs_by_user(cls, user):
-        return cls.objects.filter(user=user)
+    def get_rs_by_user(cls, user, filters=None):
+        filters = filters or {}
+        return cls.objects.filter(user=user).filter(**filters)
 
 class UserPostArticle(UserArticleRelationship):
     # to inbox

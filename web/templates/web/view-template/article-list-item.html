@@ -1,0 +1,11 @@
+<script id="article-list-item-template" type="text/underscore-template">
+<div class="article-list-item">
+    <div class="title"><a href="#article/<%= article.attributes.id %>"><%= article.attributes.title %></a></div>
+    <div class="original-link">
+        <a class="original-link" target="_blank" href="<%= article.attributes.original_url %>">original link</a>
+    </div>
+    <div class="toolbar">
+        {%include "article/toolbar.html"%}
+    </div>
+</div>
+</script>

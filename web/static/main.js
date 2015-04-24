@@ -53,6 +53,7 @@ $(function() {
             'register': 'register',
             'article/:articleid': 'showArticle',
             'random-walk': 'randomWalk',
+            'inbox': 'showInbox',
             'logout': 'logout',
         },
 
@@ -79,6 +80,24 @@ $(function() {
                 router.navigate("article/" + article.get("id"), {trigger: false});
             }).error(function(){
                 console.log('random error catch');
+            });
+        },
+
+        showInbox: function(){
+            var renderEngine = _.template($("#article-list-item-template").html());
+            $.post("/api/article/inbox/")
+             .done(function(data){
+                console.log(data);
+                var articleList = [];
+                var content = ""
+                _.each(data.articles, function(articleData){
+                    var article = new Article(articleData);
+                    articleList.push(article);
+                    content += renderEngine({"article": article})
+                })
+                $("#inbox-view .article-container").html(content)
+                switchView("inbox-view");
+
             });
         },
 
