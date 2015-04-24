@@ -28,13 +28,18 @@ class Article(models.Model):
 
         pass
 
-    def to_dict(self):
-        return {
+    def to_dict(self, exclude=None):
+        exclude = exclude or []
+        _dict = {
             "id": str(self.id),
             "original_url": self.original_url,
             "title": self.title,
             "content": self.content,
         }
+        for key in exclude:
+            del _dict[key]
+        return _dict
+
 
     def __unicode__(self):
         return "<Article: %s>"%self.title
@@ -49,6 +54,10 @@ class UserArticleRelationship(models.Model):
     class Meta:
         abstract = True
         unique_together = ('user', 'article',)
+
+    @classmethod
+    def get_rs_by_user(cls, user):
+        return cls.objects.filter(user=user)
 
 class UserPostArticle(UserArticleRelationship):
     # to inbox

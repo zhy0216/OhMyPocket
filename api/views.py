@@ -60,6 +60,33 @@ def get_article_by_id(request, articleid):
     return article.to_dict()
 
 
+@to_json
+@required_login
+def get_inbox_article(request):
+    page = request.GET.get("page") or 1
+    limit = 15
+
+    relationships = UserPostArticle.get_rs_by_user(user=request.user)
+    relationships = relationships[page*15-15:]
+    articles = relationships.values("article__id", 
+                                    "article__title",
+                                    "article__original_url")
+    article_list = []
+    for article_dic in articles:
+        _dict = {}
+        _dict["id"] = article_dic["article__id"]
+        _dict["title"] = article_dic["article__title"]
+        _dict["original_url"] = article_dic["article__original_url"]
+        article_list.append(_dict)
+
+    return {
+        "articles": article_list
+    }
+
+
+
+
+
 
 
 

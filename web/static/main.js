@@ -3,6 +3,10 @@ $(function() {
     var switchView = (function(){
         var curView = null;
         return function(viewId){
+            if(curView && curView.attr("id") === viewId){
+                return ;
+            }
+
             function _show(){
                 curView = $('#' + viewId);
                 curView.fadeIn();
@@ -70,7 +74,8 @@ $(function() {
             $.post("/api/article/random")
              .done(function(data){
                 var article = new Article(data);
-                $("#content").html(renderEngine({"article": article.attributes}))
+                $("#article-view .entry").html(renderEngine({"article": article.attributes}))
+                switchView("article-view");
                 router.navigate("article/" + article.get("id"), {trigger: false});
             }).error(function(){
                 console.log('random error catch');
@@ -82,8 +87,8 @@ $(function() {
             $.post("/api/article/" + articleId + "/")
              .done(function(data){
                 var article = new Article(data);
-                $("#content").html(renderEngine({"article": article.attributes}))
-                router.navigate("article/" + article.get("id"), {trigger: false});
+                $("#article-view .entry").html(renderEngine({"article": article.attributes}))
+                switchView("article-view");
             }).error(function(){
                 console.log('random error catch');
             });
