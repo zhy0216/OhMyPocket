@@ -5,7 +5,8 @@ from django.http import Http404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-from article.models import Article, UserPostArticle
+from article.models import (Article, UserPostArticle, 
+                            UserRemoveArticle, UserStarArticle)
 from utils import q, to_json, redis_conn, required_login
 from exceptions import APIException, ParseError
 
@@ -60,13 +61,8 @@ def get_article_by_id(request, articleid):
     return article.to_dict()
 
 
-@to_json
-@required_login
-def get_inbox_article(request):
-    page = request.GET.get("page") or 1
-    limit = 15
-
-    relationships = UserPostArticle.get_rs_by_user(user=request.user)
+def _get_article_list_by_rs(request, rs, page):
+    relationships = rs.get_rs_by_user(user=request.user)
     relationships = relationships[page*15-15:]
     articles = relationships.values("article__id", 
                                     "article__title",
@@ -79,12 +75,39 @@ def get_inbox_article(request):
         _dict["original_url"] = article_dic["article__original_url"]
         article_list.append(_dict)
 
+    return  article_list
+    
+
+@to_json
+@required_login
+def get_inbox_article(request):
+    page = request.GET.get("page") or 1
+    article_list = _get_article_list_by_rs(request, UserPostArticle, page)
+
     return {
         "articles": article_list
     }
 
 
+@to_json
+@required_login
+def get_archieve_article(request):
+    page = request.GET.get("page") or 1
+    article_list = _get_article_list_by_rs(request, UserRemoveArticle, page)
 
+    return {
+        "articles": article_list
+    }
+
+@to_json
+@required_login
+def get_star_article(request):
+    page = request.GET.get("page") or 1
+    article_list = _get_article_list_by_rs(request, UserStarArticle, page)
+
+    return {
+        "articles": article_list
+    }
 
 
 

@@ -1,16 +1,32 @@
 from django.shortcuts import render
 from django.http import Http404
-from utils import redis_conn
+from django.views.decorators.http import require_http_methods
 from article.models import Article
-
-def show_random_article(request):
-    articleid = redis_conn.srandmember(Article.ALL_PRIMARY_IDS_KEY)
-    article = Article.objects.filter(id=articleid).first()
-    if article is None:
-        raise Http404
-
-    return render(request, "article/article.html", {
-        "article": article,
+from utils import q, to_json, redis_conn, required_login
+from article.models import (Article, UserPostArticle, 
+                            UserRemoveArticle, UserStarArticle)
 
 
-    })
+def _add_rs_(user, article, rs):
+    pass
+
+@to_json
+@required_login
+@require_http_methods(["POST"])
+def star_article(request, article_id):
+    article = Article.objects.get(id=article_id)
+    rs, created = UserStarArticle.objects.get_or_create(article=article, user=request.user)
+    return {}
+
+@to_json
+@required_login
+@require_http_methods(["POST"])
+def unstar_article(request, article_id):
+    article = Article.objects.get(id=article_id)
+    rs = UserStarArticle.objects.filter(article=article, user=request.user).first()
+    if rs:
+        rs.remove()
+    return {}
+
+
+

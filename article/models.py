@@ -25,7 +25,6 @@ class Article(models.Model):
     def _catch_image(self):
         # to crawl the image from internet
         # create a thumbnail version
-
         pass
 
     def to_dict(self, exclude=None):
@@ -81,6 +80,8 @@ class UserPostArticle(UserArticleRelationship):
 
 
 class UserReadArticle(UserArticleRelationship):
+    # reading history 
+    # advance feature??
     # to nothing only record this value
 
     def __unicode__(self):
