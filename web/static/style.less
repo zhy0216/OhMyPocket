@@ -34,44 +34,37 @@ body {
 .original-link {
   font-size: 0.5em;
 }
-
-.btn.star{
+.btn.star {
   // background-color: lighten(@main-color, 30%);
   color: @main-color;
 }
+.article-list-item {
+  padding: 10px;
+  border-bottom: 1px solid whitesmoke;
+  position: relative;
 
-#inbox-view {
-  .article-list-item{
-    padding: 10px;
-    border-bottom: 1px solid whitesmoke;
-    position: relative;
-    &:hover{
-      border-bottom: 1px solid @main-color;
-      .toolbar{
-        display: block;
-      }
-    }
+  &:hover {
+    border-bottom: 1px solid @main-color;
 
-    .title{
-      a{
-        color: #424b50;
-      }
-      a:hover{
-        text-decoration: none;
-      }
-    }
-
-    .original-link {
-      font-size: initial;
-    }
-
-    .toolbar{
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 10px;
+    .toolbar {
+      display: block;
     }
   }
+  .title {
+    a {
+      color: #424b50;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+  }
+  .original-link {
+    font-size: initial;
+  }
+  .toolbar {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 10px;
+  }
 }
-
-

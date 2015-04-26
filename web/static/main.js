@@ -77,8 +77,9 @@ $(function() {
         template: _.template($("#article-list-item-template").html()),
 
         events: {
-            'click .toolbar .star': 'unstar',
-            'click .toolbar .unstar': 'star',
+            'click .toolbar .btn.star': 'unstar',
+            'click .toolbar .btn.unstar': 'star',
+            'click .toolbar .btn.archieve': 'archieve',
         },
 
         initialize: function() {
@@ -95,7 +96,8 @@ $(function() {
         },
 
         archieve: function(){
-
+            this.model.archieve();
+            this.$el.slideUp();
         },
 
         render: function(){
@@ -112,13 +114,19 @@ $(function() {
     var router = new (Backbone.Router.extend({
 
         routes: {
-            "": "",
+            "": "index",
             "login": "login",
             'register': 'register',
             'article/:articleid': 'showArticle',
             'random-walk': 'randomWalk',
             'inbox': 'showInbox',
+            'mystar': 'showStarArticles',
+            'archieve': 'showArchieve',
             'logout': 'logout',
+        },
+
+        index: function(){
+
         },
 
         login: function(){
@@ -148,7 +156,7 @@ $(function() {
         },
 
         showInbox: function(){
-            var renderEngine = _.template($("#article-list-item-template").html());
+            console.log("inbox");
             $.post("/api/article/inbox/")
              .done(function(data){
                 console.log(data);
@@ -162,6 +170,27 @@ $(function() {
                 switchView("inbox-view");
 
             });
+        },
+
+        showStarArticles: function(){
+            console.log("star");
+            $.post("/api/article/star/")
+             .done(function(data){
+                console.log(data);
+                $("#star-view .article-container").html("")
+                _.each(data.articles, function(articleData){
+                    var article = new Article(articleData);
+                    var articleListView = new ArticleListItemView({model: article});
+                    articleListView.render();
+                    $("#star-view .article-container").append(articleListView.$el)
+                })
+                switchView("star-view");
+
+            });
+        },
+
+        showArchieve: function(){
+            console.log("archieve");
         },
 
         showArticle: function(articleId){
