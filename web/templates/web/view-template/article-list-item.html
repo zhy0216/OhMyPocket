@@ -1,11 +1,15 @@
 <script id="article-list-item-template" type="text/underscore-template">
-<div class="article-list-item">
     <div class="title"><a href="#article/<%= article.attributes.id %>"><%= article.attributes.title %></a></div>
     <div class="original-link">
         <a class="original-link" target="_blank" href="<%= article.attributes.original_url %>">original link</a>
     </div>
     <div class="toolbar">
-        {%include "article/toolbar.html"%}
+        <span class="btn-group btn-group-sm">
+            <button type="button" title="star" class="btn btn-default <%= article.star_class() %>">
+                <span class="glyphicon glyphicon-star"></span>
+            <button type="button" title="archieve" class="btn btn-default">
+                <span class="glyphicon glyphicon-folder-close"></span>
+            </button>
+        </span>
     </div>
-</div>
 </script>

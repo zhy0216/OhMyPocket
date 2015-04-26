@@ -59,6 +59,10 @@ class UserArticleRelationship(models.Model):
         filters = filters or {}
         return cls.objects.filter(user=user).filter(**filters)
 
+    @classmethod
+    def has_rs_between_user_article(cls, user, article):
+        return bool(cls.objects.filter(user=user, article=article).first())
+
 class UserPostArticle(UserArticleRelationship):
     # to inbox
 

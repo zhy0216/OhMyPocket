@@ -41,8 +41,72 @@ $(function() {
     });
 
     var Article = Backbone.Model.extend({
+
+        star: function(callback){
+            var url = "/api/article/" + this.get("id") + "/star";
+            var self = this;
+            $.post(url).done(function(data){
+                self.set("is_star", true);
+                callback && callback(data);
+            })
+        },
+
+        unstar: function(callback){
+            var url = "/api/article/" + this.get("id") + "/unstar";
+            var self = this;
+            $.post(url).done(function(data){
+                self.set("is_star", false);
+                callback && callback(data);
+
+            })
+        },
+
+        star_class: function(){
+            if(this.get("is_star")){
+                return "star"
+            }else{
+                return "unstar"
+            }
+        },
+
     });
 
+
+    var ArticleListItemView = Backbone.View.extend({
+        className: "article-list-item",
+        template: _.template($("#article-list-item-template").html()),
+
+        events: {
+            'click .toolbar .star': 'unstar',
+            'click .toolbar .unstar': 'star',
+        },
+
+        initialize: function() {
+            console.log("init");
+            this.listenTo(this.model, "change", this.render);
+        },
+
+        star: function(){
+            this.model.star();
+        },
+
+        unstar: function(){
+            this.model.unstar();
+        },
+
+        archieve: function(){
+
+        },
+
+        render: function(){
+            var content = this.template({"article": this.model});
+            this.$el.html(content);
+            this.undelegateEvents();
+            this.delegateEvents();
+            return this;
+        },
+
+    });
 
 
     var router = new (Backbone.Router.extend({
@@ -88,14 +152,13 @@ $(function() {
             $.post("/api/article/inbox/")
              .done(function(data){
                 console.log(data);
-                var articleList = [];
-                var content = ""
+                $("#inbox-view .article-container").html("")
                 _.each(data.articles, function(articleData){
                     var article = new Article(articleData);
-                    articleList.push(article);
-                    content += renderEngine({"article": article})
+                    var articleListView = new ArticleListItemView({model: article});
+                    articleListView.render();
+                    $("#inbox-view .article-container").append(articleListView.$el)
                 })
-                $("#inbox-view .article-container").html(content)
                 switchView("inbox-view");
 
             });

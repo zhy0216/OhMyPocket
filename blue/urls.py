@@ -13,7 +13,6 @@ urlpatterns = patterns('',
     # (r'^account/', include('userena.urls')),
     (r'^api/', include('api.urls')),
     (r'^web/', include('web.urls')),
-    url(r'^article/random$', "article.views.show_random_article")
 
     # url(r'^admin/', include(admin.site.urls)),
 )

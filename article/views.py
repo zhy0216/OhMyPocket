@@ -25,7 +25,7 @@ def unstar_article(request, article_id):
     article = Article.objects.get(id=article_id)
     rs = UserStarArticle.objects.filter(article=article, user=request.user).first()
     if rs:
-        rs.remove()
+        rs.delete()
     return {}
 
 

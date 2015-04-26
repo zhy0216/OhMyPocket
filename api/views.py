@@ -62,7 +62,8 @@ def get_article_by_id(request, articleid):
 
 
 def _get_article_list_by_rs(request, rs, page):
-    relationships = rs.get_rs_by_user(user=request.user)
+    user = request.user
+    relationships = rs.get_rs_by_user(user=user)
     relationships = relationships[page*15-15:]
     articles = relationships.values("article__id", 
                                     "article__title",
@@ -73,6 +74,7 @@ def _get_article_list_by_rs(request, rs, page):
         _dict["id"] = article_dic["article__id"]
         _dict["title"] = article_dic["article__title"]
         _dict["original_url"] = article_dic["article__original_url"]
+        _dict["is_star"] = UserStarArticle.has_rs_between_user_article(user, article_dic["article__id"])
         article_list.append(_dict)
 
     return  article_list
