@@ -1,7 +1,7 @@
-define(['jquery', 'underscore', 'backbone', 'pageview'],
+define(['jquery', 'underscore', 'backbone', 'views/pageview'],
 function($, _, backbone, PageView){
-
-    var LoginView = Backbone.View.extend({
+    'use strict';
+    var LoginView = PageView.extend({
         events: {
             'click .login-btn': 'login',
         },
@@ -14,7 +14,7 @@ function($, _, backbone, PageView){
                 password: password,
             }).done(function(data){
                 console.log(data);
-                // router.navigate("random-walk", {trigger: true});
+                Backbone.trigger("url-navigate", "random-walk", {trigger: true});
             });
         },
 

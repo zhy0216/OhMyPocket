@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone'],
     function($, _, backbone) {
-
+        'use strict';
         var Article = Backbone.Model.extend({
 
             star: function(callback) {

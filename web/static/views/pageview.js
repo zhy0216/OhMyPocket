@@ -1,16 +1,17 @@
 define(['jquery', 'underscore', 'backbone'],
 function($, _, backbone){
-
+    'use strict';
     var curView = null;
     var PageView = Backbone.View.extend({
 
         switchView: function(){
+            var self = this;
             if(curView && curView === this.$el){
                 return ;
             }
 
             function _show(){
-                curView = this.$el;
+                curView = self.$el;
                 curView.fadeIn();
             }
 

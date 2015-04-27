@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone'],
     function($, _, backbone) {
-
+        'use strict';
         var ArticleListItemView = Backbone.View.extend({
             className: "article-list-item",
             template: _.template($("#article-list-item-template").html()),

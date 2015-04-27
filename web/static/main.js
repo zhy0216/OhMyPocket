@@ -1,5 +1,8 @@
 require.config({
     baseUrl: 'static/',
+    shim : {
+        "bootstrap" : { "deps" :['jquery'] }
+    },
     paths: {
         jquery: 'libs/jquery',
         underscore: 'libs/underscore', 
@@ -17,12 +20,12 @@ require(['jquery', 'underscore', 'backbone',
                 LoginView, ArticleListItemView,
                 Article
                 ) {
-
+    'use strict';
     console.log($);
     console.log(_);
     console.log(Backbone);
 
-    var loginPage = new LoginView({el: $("#login-view")});
+    var loginPage = new LoginView({el: "#login-view"});
 
 
     var router = new (Backbone.Router.extend({
@@ -121,6 +124,11 @@ require(['jquery', 'underscore', 'backbone',
 
 
     }));
+
+    Backbone.on("url-navigate", function(url, option){
+        router.navigate(url, option);
+    })
+
 
     Backbone.history.start();
 
