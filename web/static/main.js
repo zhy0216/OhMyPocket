@@ -14,14 +14,14 @@ require.config({
 
 require(['jquery', 'underscore', 'backbone', 
          'views/login-view', 'views/article-list-item-view',  'views/show-article',
-         'views/random-walk',
+         'views/random-walk', 'views/inbox', 'views/mystar',
          // views stuff
-         'models/article',   // models
+         'models/article', 'models/article-collection',  // models
          'domReady!', 'bootstrap'], 
         function($, _, Backbone,
                 LoginView, ArticleListItemView, ShowArticle,
-                RandomWalk,
-                Article
+                RandomWalk, Inbox, MyStar,
+                Article, ArticleCollection
                 ) {
     'use strict';
     console.log($);
@@ -33,6 +33,8 @@ require(['jquery', 'underscore', 'backbone',
     Page.login = new LoginView({el: "#login-view"});
     Page.showArticle = new ShowArticle({el: "#article-view"});
     Page.randomWalk = new RandomWalk();
+    Page.inbox = new Inbox({el: "#inbox-view"});
+    Page.mystar = new MyStar({el: "#star-view"});
 
 
     var router = new (Backbone.Router.extend({
@@ -80,36 +82,26 @@ require(['jquery', 'underscore', 'backbone',
 
         showInbox: function(){
             console.log("inbox");
-            $.post("/api/article/inbox/")
-             .done(function(data){
-                console.log(data);
-                $("#inbox-view .article-container").html("")
-                _.each(data.articles, function(articleData){
-                    var article = new Article(articleData);
-                    var articleListView = new ArticleListItemView({model: article});
-                    articleListView.render();
-                    $("#inbox-view .article-container").append(articleListView.$el)
-                })
-                switchView("inbox-view");
-
-            });
+            Page.inbox.post("/api/article/inbox/")
+                .done(function(data){
+                    console.log(data);
+                    var articleCollection = new ArticleCollection(data.articles);
+                    Page.inbox.setModel(articleCollection);
+                    Page.inbox.render();
+                    Page.inbox.switchView();
+                });
         },
 
         showStarArticles: function(){
             console.log("star");
-            $.post("/api/article/star/")
-             .done(function(data){
-                console.log(data);
-                $("#star-view .article-container").html("")
-                _.each(data.articles, function(articleData){
-                    var article = new Article(articleData);
-                    var articleListView = new ArticleListItemView({model: article});
-                    articleListView.render();
-                    $("#star-view .article-container").append(articleListView.$el)
-                })
-                switchView("star-view");
-
-            });
+            Page.mystar.post("/api/article/star/")
+                .done(function(data){
+                    console.log(data);
+                    var articleCollection = new ArticleCollection(data.articles);
+                    Page.mystar.setModel(articleCollection);
+                    Page.mystar.render();
+                    Page.mystar.switchView();
+                });
         },
 
         showArchieve: function(){
