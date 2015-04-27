@@ -13,11 +13,14 @@ require.config({
 });
 
 require(['jquery', 'underscore', 'backbone', 
-         'views/login-view', 'views/article-list-item-view',  // views stuff
+         'views/login-view', 'views/article-list-item-view',  'views/show-article',
+         'views/random-walk',
+         // views stuff
          'models/article',   // models
          'domReady!', 'bootstrap'], 
         function($, _, Backbone,
-                LoginView, ArticleListItemView,
+                LoginView, ArticleListItemView, ShowArticle,
+                RandomWalk,
                 Article
                 ) {
     'use strict';
@@ -25,7 +28,11 @@ require(['jquery', 'underscore', 'backbone',
     console.log(_);
     console.log(Backbone);
 
-    var loginPage = new LoginView({el: "#login-view"});
+    var Page = {};
+
+    Page.login = new LoginView({el: "#login-view"});
+    Page.showArticle = new ShowArticle({el: "#article-view"});
+    Page.randomWalk = new RandomWalk();
 
 
     var router = new (Backbone.Router.extend({
@@ -47,7 +54,7 @@ require(['jquery', 'underscore', 'backbone',
         },
 
         login: function(){
-            loginPage.switchView();
+            Page.login.switchView();
         },
 
         logout: function(){
@@ -59,16 +66,16 @@ require(['jquery', 'underscore', 'backbone',
         },
 
         randomWalk: function(){
-            var renderEngine = _.template($("#article-shower-template").html());
-            $.post("/api/article/random")
-             .done(function(data){
-                var article = new Article(data);
-                $("#article-view .entry").html(renderEngine({"article": article.attributes}))
-                switchView("article-view");
-                router.navigate("article/" + article.get("id"), {trigger: false});
-            }).error(function(){
-                console.log('random error catch');
-            });
+            Page.randomWalk.post("/api/article/random")
+                .done(function(data){
+                    var article = new Article(data);
+                    Page.showArticle.setModel(article);
+                    Page.showArticle.render();
+                    Page.showArticle.switchView();
+                    router.navigate("article/" + article.get("id"), {trigger: false});
+                }).error(function(){
+                    console.log('random error catch');
+                });
         },
 
         showInbox: function(){
@@ -110,16 +117,15 @@ require(['jquery', 'underscore', 'backbone',
         },
 
         showArticle: function(articleId){
-            var renderEngine = _.template($("#article-shower-template").html());
-            $.post("/api/article/" + articleId + "/")
-             .done(function(data){
-                var article = new Article(data);
-                $("#article-view .entry").html(renderEngine({"article": article.attributes}))
-                switchView("article-view");
-            }).error(function(){
-                console.log('random error catch');
-            });
 
+            Page.showArticle.post("/api/article/" + articleId + "/")
+                .done(function(data){
+                    Page.showArticle.setModel(new Article(data));
+                    Page.showArticle.render();
+                    Page.showArticle.switchView();
+                }).error(function(){
+                    console.log('random error catch');
+                });
         },
 
 

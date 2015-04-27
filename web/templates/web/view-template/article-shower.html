@@ -1,14 +1,30 @@
 <script id="article-shower-template" type="text/underscore-template">
 <div class="container-fluid">
     <div class="entry">
-        <h1><%= article.title %>
-            <a class="original-link" href="<%= article.original_url %>">original link</a>
+        <h1><%= attributes.title %>
+            <a class="original-link" href="<%= attributes.original_url %>">original link</a>
         </h1>
         <hr />
-        {%include "article/toolbar.html"%}
-        <div><%= article.content %></div>
+        <div class="toolbar">
+            <span class="btn-group btn-group-sm">
+                <button type="button" title="star" class="btn btn-default <%= star_class() %>">
+                    <span class="glyphicon glyphicon-star"></span>
+                <button type="button" title="archieve" class="btn btn-default archieve">
+                    <span class="glyphicon glyphicon-folder-close"></span>
+                </button>
+            </span>
+        </div>
+        <div><%= attributes.content %></div>
         <hr />
-        {%include "article/toolbar.html"%}
+        <div class="toolbar">
+            <span class="btn-group btn-group-sm">
+                <button type="button" title="star" class="btn btn-default <%= star_class() %>">
+                    <span class="glyphicon glyphicon-star"></span>
+                <button type="button" title="archieve" class="btn btn-default archieve">
+                    <span class="glyphicon glyphicon-folder-close"></span>
+                </button>
+            </span>
+        </div>
     </div>
 </div>
 </script>
