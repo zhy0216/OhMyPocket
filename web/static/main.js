@@ -63,6 +63,7 @@ require(['jquery', 'underscore', 'backbone',
             $.post("/api/account/logout")
              .done(function(data){
                 console.log(data);
+                Backbone.trigger("user-logout");
                 router.navigate("random-walk", {trigger: true});
             });
         },
@@ -76,7 +77,7 @@ require(['jquery', 'underscore', 'backbone',
                     Page.showArticle.switchView();
                     router.navigate("article/" + article.get("id"), {trigger: false});
                 }).error(function(){
-                    console.log('random error catch');
+                    router.navigate("inbox", {trigger: true});
                 });
         },
 
@@ -126,6 +127,16 @@ require(['jquery', 'underscore', 'backbone',
     Backbone.on("url-navigate", function(url, option){
         router.navigate(url, option);
     })
+
+    Backbone.on("user-login", function(){
+        $('.unlogin-sidebar').addClass('view-hide');
+        $('.login-sidebar').removeClass('view-hide');
+    });
+
+    Backbone.on("user-logout", function(){
+        $('.login-sidebar').addClass('view-hide');
+        $('.unlogin-sidebar').removeClass('view-hide');
+    });
 
 
     Backbone.history.start();

@@ -14,7 +14,10 @@ function($, _, backbone, PageView){
                 password: password,
             }).done(function(data){
                 console.log(data);
-                Backbone.trigger("url-navigate", "random-walk", {trigger: true});
+                if(data.ok){
+                    Backbone.trigger("user-login");
+                    Backbone.trigger("url-navigate", "random-walk", {trigger: true});
+                }
             });
         },
 
