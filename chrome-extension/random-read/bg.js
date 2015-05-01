@@ -9,28 +9,37 @@ var HOST = 'http://localhost:8000';
 
 // chrome.browserAction.setPopup({popup: "popup.html"});
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {action: "require-url"}, function(response) {
-        console.log("response");
-        console.log(response);
+function sendToContent(action, callback){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {action: action}, function(response) {
+        // console.log(response);
       });
     });
+}
+
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+    sendToContent("require-url");
 });
 
 
-chrome.runtime.onMessage.addListener(function(data){
-    if(data.action == "send-url"){
+chrome.runtime.onMessage.addListener(function(data) {
+    if (data.action == "send-url") {
         $.post(HOST + "/api/article/add", {
             url: data.url
-        }).done(function(resp){
-            console.log("add article done");
-            console.log(resp);
-         })
+        }).done(function(resp) {
+            if (resp.ok) {
+                //done
+            } else {
+                if (resp.status_code === 401) {
+                    // require login
+                    sendToContent("open-login");
+                }
+            }
+
+        })
     }
 });
-
-
 
 
 
