@@ -107,7 +107,7 @@ class UserRemoveArticle(UserArticleRelationship):
 
 
     def __unicode__(self):
-        return "[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
+        return "[UserRemoveArticle: <%s -> %s>]"%(self.user, self.article)
 
 
 

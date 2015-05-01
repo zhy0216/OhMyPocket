@@ -43,9 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'account',
     'web',
-    "easy_thumbnails",
-    'api',
     'article',
+    'api',
 )
 
 if DEBUG:
