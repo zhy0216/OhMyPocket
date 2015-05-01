@@ -17,6 +17,7 @@ class Article(models.Model):
     primary         = models.BooleanField(default=False)
     # only exist when primary is false
     primary_article = models.ForeignKey("Article", null=True, blank=True)
+    create_time     = models.DateTimeField(auto_now=True)
 
 
     ALL_PRIMARY_IDS_KEY = "all-primary-article-id"
@@ -47,8 +48,9 @@ class Article(models.Model):
 ### user -- article relationship
 
 class UserArticleRelationship(models.Model):
-    user            = models.ForeignKey(User)
+    user            = models.OneToOneField(User)
     article         = models.ForeignKey("Article")
+    create_time     = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
