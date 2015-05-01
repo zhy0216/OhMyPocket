@@ -12,7 +12,7 @@ function sendUrl(){
 
 chrome.runtime.onMessage.addListener(function(data) {
     console.log(data)
-    if(data.action == "require-url"){
+    if(data.action === "require-url"){
         sendUrl();
     }
 });
