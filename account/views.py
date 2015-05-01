@@ -27,6 +27,8 @@ def user_register(request):
     password = request.POST.get("password") or None
     try:
         user = User.objects.create_user(username, username, password)
+        user = authenticate(username=username, password=password)
+        login(request, user)
     except:
         raise ParseError("username has exsists")
 

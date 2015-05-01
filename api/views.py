@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from article.models import (Article, UserPostArticle, 
-                            UserRemoveArticle, UserStarArticle)
+                            UserRemoveArticle, UserStarArticle, UserReadArticle)
 from utils import q, to_json, redis_conn, required_login
 from exceptions import APIException, ParseError
 
@@ -43,8 +43,7 @@ def random_article(request):
             raise Http404
         article_id = random.sample(article_id_sets, 1)[0]
         redis_conn.sadd(request.user.id, article_id)
-        # save to user read
-
+        UserReadArticle.objects.get_or_create(user=request.user, article_id=article_id)
 
     else:
         article_id = redis_conn.srandmember(Article.ALL_PRIMARY_IDS_KEY) or 0

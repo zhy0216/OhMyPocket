@@ -13,13 +13,13 @@ require.config({
 });
 
 require(['jquery', 'underscore', 'backbone', 
-         'views/login-view', 'views/article-list-item-view',  'views/show-article',
+         'views/login-view', 'views/register-view', 'views/article-list-item-view',  'views/show-article',
          'views/random-walk', 'views/inbox', 'views/mystar',
          // views stuff
          'models/article', 'models/article-collection',  // models
          'domReady!', 'bootstrap'], 
         function($, _, Backbone,
-                LoginView, ArticleListItemView, ShowArticle,
+                LoginView, RegisterView, ArticleListItemView, ShowArticle,
                 RandomWalk, Inbox, MyStar,
                 Article, ArticleCollection
                 ) {
@@ -31,6 +31,7 @@ require(['jquery', 'underscore', 'backbone',
     var Page = {};
 
     Page.login = new LoginView({el: "#login-view"});
+    Page.register = new RegisterView({el: "#register-view"});
     Page.showArticle = new ShowArticle({el: "#article-view"});
     Page.randomWalk = new RandomWalk();
     Page.inbox = new Inbox({el: "#inbox-view"});
@@ -59,6 +60,9 @@ require(['jquery', 'underscore', 'backbone',
             Page.login.switchView();
         },
 
+        register: function(){
+            Page.register.switchView();
+        },
         logout: function(){
             $.post("/api/account/logout")
              .done(function(data){

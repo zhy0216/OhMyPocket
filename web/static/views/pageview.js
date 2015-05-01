@@ -31,11 +31,11 @@ function($, _, Backbone){
 
             function _show(){
                 curView = self.$el;
-                curView.fadeIn();
+                curView.fadeIn('fast');
             }
 
             if(curView){
-                curView.fadeOut(_show);
+                curView.fadeOut('fast', _show);
             }else{
                 _show();
             }

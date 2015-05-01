@@ -48,7 +48,7 @@ class Article(models.Model):
 ### user -- article relationship
 
 class UserArticleRelationship(models.Model):
-    user            = models.OneToOneField(User)
+    user            = models.ForeignKey(User)
     article         = models.ForeignKey("Article")
     create_time     = models.DateTimeField(auto_now=True)
 
