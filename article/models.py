@@ -26,6 +26,15 @@ class Article(models.Model):
     def _catch_image(self):
         # to crawl the image from internet
         # create a thumbnail version
+
+
+        # find image: 1. src
+        #             2. background_image_finder
+        #             3. consider https://github.com/vinta/Haul project
+
+        # process image url : 1. http://  => full image
+        #                     2. /site/sjl.jpg  => relative, root + 
+        #                     3. site/ss.jpg    => relative, path + 
         pass
 
     def to_dict(self, exclude=None):
@@ -76,6 +85,7 @@ class UserPostArticle(UserArticleRelationship):
             html = urllib.urlopen(article.original_url).read()
             article.content = Document(html).summary()
             article.title = Document(html).short_title()
+            article._catch_image()
             article.primary = True # TODO
             article.finished = True
             redis_conn.sadd(Article.ALL_PRIMARY_IDS_KEY, article.id)
