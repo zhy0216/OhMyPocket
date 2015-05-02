@@ -24,18 +24,8 @@ class Article(models.Model):
 
 
     def _catch_image(self):
-        # to crawl the image from internet
-        # create a thumbnail version
-
-
-        # find image: 1. src
-        #             2. background_image_finder
-        #             3. consider https://github.com/vinta/Haul project
-
-        # process image url : 1. http://  => full image
-        #                     2. /site/sjl.jpg  => relative, root + 
-        #                     3. site/ss.jpg    => relative, path + 
-        pass
+        from utils.image_crawler import change_image
+        change_image(self)
 
     def to_dict(self, exclude=None):
         exclude = exclude or []
