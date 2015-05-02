@@ -1,4 +1,5 @@
 from functools import wraps
+
 from redis import Redis, StrictRedis
 from rq import Queue
 import ujson
