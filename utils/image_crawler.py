@@ -1,11 +1,13 @@
+import shutil
 from urlparse import urlparse, urljoin
 import base64
+import requests
 from bs4 import BeautifulSoup
+from blue.settings import MEDIA_ROOT, IMAGE_PREFIX
 
 ''' download the image from the article '''
 
-IMAGE_PREFIX = "/static/download-image/"
-IMAGE_DOWNLOAD_FOLDER = ""
+IMAGE_DOWNLOAD_FOLDER = MEDIA_ROOT + "download-image/"
 
 
 def get_absolute_url(article_url, image_url):
@@ -43,6 +45,8 @@ def change_image(article):
             name = get_name(absolute_url)
             img['src'] = IMAGE_PREFIX + name
             # download image
+            # its better to use another worker
+            download_image(absolute_url, name)
 
     article.content = ''.join(map(str, soup.body.contents))
     article.save()
@@ -50,7 +54,10 @@ def change_image(article):
 
 
 def download_image(image_url, new_name):
-    pass
+    response = requests.get(image_url, stream=True)
+    with open(IMAGE_DOWNLOAD_FOLDER + new_name, 'wb') as out_file:
+        shutil.copyfileobj(response.raw, out_file)
+    del response
 
 
 

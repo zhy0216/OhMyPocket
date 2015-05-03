@@ -2,6 +2,7 @@
 todo
 style.css
 local_settings.py
+download-image/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
