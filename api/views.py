@@ -62,7 +62,7 @@ def get_article_by_id(request, articleid):
 
 def _get_article_list_by_rs(request, rs, page):
     user = request.user
-    relationships = rs.get_rs_by_user(user=user)
+    relationships = rs.get_rs_by_user(user=user, filters={"article__finished": True})
     relationships = relationships[page*15-15:]
     articles = relationships.values("article__id", 
                                     "article__title",

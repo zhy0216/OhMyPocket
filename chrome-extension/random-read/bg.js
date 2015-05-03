@@ -17,6 +17,15 @@ function sendToContent(action, callback){
     });
 }
 
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    // console.log("changeInfo::");
+    // console.log(changeInfo);
+     if(changeInfo.status == "loading") {
+        if(tab.url == HOST + "/#exit") {
+            chrome.tabs.remove(tabId);
+        }
+    }
+});
 
 chrome.browserAction.onClicked.addListener(function(tab) {
     sendToContent("require-url");

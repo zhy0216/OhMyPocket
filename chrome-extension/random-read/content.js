@@ -17,9 +17,9 @@ chrome.runtime.onMessage.addListener(function(data) {
     }
 
     if(data.action === "open-login"){
-        var url =HOST + "/#login";
+        var url =HOST + "/#login-popup";
         var newwindow = window.open(url, "_blank", "resizable=no, scrollbars=no, titlebar=no, width=400, height=400, top=50, left=300");
     }
-
-
 });
+
+

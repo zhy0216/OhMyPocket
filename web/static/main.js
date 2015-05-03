@@ -43,7 +43,9 @@ require(['jquery', 'underscore', 'backbone',
         routes: {
             "": "index",
             "login": "login",
+            "login-popup": "loginPopup",
             'register': 'register',
+            "register-popup": "registerPopup",
             'article/:articleid': 'showArticle',
             'random-walk': 'randomWalk',
             'inbox': 'showInbox',
@@ -60,9 +62,26 @@ require(['jquery', 'underscore', 'backbone',
             Page.login.switchView();
         },
 
+        loginPopup: function(){
+            var popView = new LoginView({el: "#login-view"});
+            popView.success = function(){
+                router.navigate("exit", {trigger: false});
+            }
+            popView.switchView();
+        }, 
+
         register: function(){
             Page.register.switchView();
         },
+
+        registerPopup: function(){
+            var popView = new LoginView({el: "#register-view"});
+            popView.success = function(){
+                router.navigate("exit", {trigger: false});
+            }
+            popView.switchView();
+        },
+
         logout: function(){
             $.post("/api/account/logout")
              .done(function(data){
