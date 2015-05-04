@@ -28,5 +28,13 @@ def unstar_article(request, article_id):
         rs.delete()
     return {}
 
+@to_json
+@required_login
+@require_http_methods(["POST"])
+def archieve_article(request, article_id):
+    article = Article.objects.get(id=article_id)
+    rs, created = UserRemoveArticle.objects.get_or_create(article=article, user=request.user)
+    return {}
+
 
 
