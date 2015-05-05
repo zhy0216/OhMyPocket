@@ -9,6 +9,7 @@ define(['jquery', 'underscore', 'backbone'],
                 'click .toolbar .btn.star': 'unstar',
                 'click .toolbar .btn.unstar': 'star',
                 'click .toolbar .btn.archive': 'archive',
+                'click .toolbar .btn.delete': 'delete',
             },
 
             initialize: function() {
@@ -26,6 +27,11 @@ define(['jquery', 'underscore', 'backbone'],
 
             archive: function() {
                 this.model.archive();
+                this.$el.slideUp();
+            },
+
+            delete: function() {
+                this.model.delete();
                 this.$el.slideUp();
             },
 

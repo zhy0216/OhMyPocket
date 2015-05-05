@@ -28,6 +28,21 @@ define(['jquery', 'underscore', 'backbone'],
                     return "unstar"
                 }
             },
+            archive: function(callback){
+                var url = "/api/article/" + this.get("id") + "/archive";
+                var self = this;
+                $.post(url).done(function(data) {
+                    callback && callback(data);
+                })
+            },
+
+            delete: function(callback){
+                var url = "/api/article/" + this.get("id") + "/delete";
+                var self = this;
+                $.post(url).done(function(data) {
+                    callback && callback(data);
+                })
+            }
 
         });
 

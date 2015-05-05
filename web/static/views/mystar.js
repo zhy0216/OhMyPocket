@@ -4,12 +4,7 @@ function($, _, backbone, Inbox, ArticleListItemView){
     'use strict';
     var _event =_.extend({}, Backbone.Events);
     var MyArticleListItemView = ArticleListItemView.extend({
-        unstar: function(){
-            ArticleListItemView.prototype.unstar.call(this);
-            this.$el.slideUp();
-            _event.trigger("MyArticleListItemView.unstar", this.model);
-
-        }
+        
     });
 
     var MyStar = Inbox.extend({
