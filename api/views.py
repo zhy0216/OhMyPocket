@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from article.models import (Article, UserPostArticle, 
-                            UserRemoveArticle, UserStarArticle, UserReadArticle)
+                            UserRemoveArticle, UserStarArticle, UserReadArticle, UserArchiveArticle)
 from utils import q, to_json, redis_conn, required_login
 from exceptions import APIException, ParseError
 
@@ -92,9 +92,9 @@ def get_inbox_article(request):
 
 @to_json
 @required_login
-def get_archieve_article(request):
+def get_archive_article(request):
     page = request.GET.get("page") or 1
-    article_list = _get_article_list_by_rs(request, UserRemoveArticle, page)
+    article_list = _get_article_list_by_rs(request, UserArchiveArticle, page)
 
     return {
         "articles": article_list

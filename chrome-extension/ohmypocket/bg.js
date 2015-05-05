@@ -20,10 +20,16 @@ function sendToContent(action, callback){
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // console.log("changeInfo::");
     // console.log(changeInfo);
-     if(changeInfo.status == "loading") {
+    if(changeInfo.status == "loading") {
         if(tab.url == HOST + "/#exit") {
             chrome.tabs.remove(tabId);
         }
+        chrome.browserAction.setIcon({
+            path: {
+                38: "mypocket-inactive.png"
+            }
+        });
+
     }
 });
 
@@ -39,6 +45,11 @@ chrome.runtime.onMessage.addListener(function(data) {
         }).done(function(resp) {
             if (resp.ok) {
                 //done
+                chrome.browserAction.setIcon({
+                    path: {
+                        38: "mypocket-active.png"
+                    }
+                });
             } else {
                 if (resp.status_code === 401) {
                     // require login

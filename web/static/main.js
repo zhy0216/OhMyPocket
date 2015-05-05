@@ -14,13 +14,13 @@ require.config({
 
 require(['jquery', 'underscore', 'backbone', 
          'views/login-view', 'views/register-view', 'views/article-list-item-view',  'views/show-article',
-         'views/random-walk', 'views/inbox', 'views/mystar', 'views/archieve',
+         'views/random-walk', 'views/inbox', 'views/mystar', 'views/archive',
          // views stuff
          'models/article', 'models/article-collection',  // models
          'domReady!', 'bootstrap'], 
         function($, _, Backbone,
                 LoginView, RegisterView, ArticleListItemView, ShowArticle,
-                RandomWalk, Inbox, MyStar, Archieve,
+                RandomWalk, Inbox, MyStar, Archive,
                 Article, ArticleCollection
                 ) {
     'use strict';
@@ -36,7 +36,7 @@ require(['jquery', 'underscore', 'backbone',
     Page.randomWalk = new RandomWalk();
     Page.inbox = new Inbox({el: "#inbox-view"});
     Page.mystar = new MyStar({el: "#star-view"});
-    Page.archieve = new Archieve({el: "#archieve-view"});
+    Page.archive = new Archive({el: "#archive-view"});
 
 
     var router = new (Backbone.Router.extend({
@@ -51,7 +51,7 @@ require(['jquery', 'underscore', 'backbone',
             'random-walk': 'randomWalk',
             'inbox': 'showInbox',
             'mystar': 'showStarArticles',
-            'archieve': 'showArchieve',
+            'archive': 'showArchive',
             'logout': 'logout',
         },
 
@@ -129,14 +129,14 @@ require(['jquery', 'underscore', 'backbone',
                 });
         },
 
-        showArchieve: function(){
-            Page.archieve.post("/api/article/archieve/")
+        showArchive: function(){
+            Page.archive.post("/api/article/archive/")
                 .done(function(data){
                     console.log(data);
                     var articleCollection = new ArticleCollection(data.articles);
-                    Page.archieve.setModel(articleCollection);
-                    Page.archieve.render();
-                    Page.archieve.switchView();
+                    Page.archive.setModel(articleCollection);
+                    Page.archive.render();
+                    Page.archive.switchView();
                 });
         },
 

@@ -100,12 +100,18 @@ class UserStarArticle(UserArticleRelationship):
     def __unicode__(self):
         return "[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
 
+class UserArchiveArticle(UserArticleRelationship):
+    '''this is used when user archive a article
+       recorded this data, might be useful
+    '''
+    # archive
 
 class UserRemoveArticle(UserArticleRelationship):
     '''this is used when user delete a article
        recorded this data, might be useful
     '''
-    # to archieve
+    # do nothing
+    # 
 
 
     def __unicode__(self):

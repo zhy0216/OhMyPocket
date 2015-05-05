@@ -8,7 +8,7 @@ define(['jquery', 'underscore', 'backbone'],
             events: {
                 'click .toolbar .btn.star': 'unstar',
                 'click .toolbar .btn.unstar': 'star',
-                'click .toolbar .btn.archieve': 'archieve',
+                'click .toolbar .btn.archive': 'archive',
             },
 
             initialize: function() {
@@ -24,8 +24,8 @@ define(['jquery', 'underscore', 'backbone'],
                 this.model.unstar();
             },
 
-            archieve: function() {
-                this.model.archieve();
+            archive: function() {
+                this.model.archive();
                 this.$el.slideUp();
             },
 

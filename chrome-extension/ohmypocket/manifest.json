@@ -1,11 +1,10 @@
 {
-    "name": "random-read",
+    "name": "ohmypocket",
     "version": "1",
     "manifest_version": 2,
     "description": "random-read chrome extension",
     "browser_action": {
         "default_icon": "mypocket-inactive.png",
-        // "default_popup": "popup.html",
         "default_title": "save to ohmypocket"
     },
     "background": {
