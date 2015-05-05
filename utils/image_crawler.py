@@ -1,3 +1,4 @@
+import os.path
 import shutil
 from urlparse import urlparse, urljoin
 import base64
@@ -54,8 +55,12 @@ def change_image(article):
 
 
 def download_image(image_url, new_name):
+    filename = IMAGE_DOWNLOAD_FOLDER + new_name
+    if os.path.isfile(filename):
+        return None
+
     response = requests.get(image_url, stream=True)
-    with open(IMAGE_DOWNLOAD_FOLDER + new_name, 'wb') as out_file:
+    with open(filename, 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
     del response
 
