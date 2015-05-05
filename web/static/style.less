@@ -42,8 +42,11 @@ body {
 .view-hide {
   display: none;
 }
-.original-link {
-  font-size: 0.5em;
+.entry .article-title{
+  margin-bottom: 0;
+  .original-link {
+    font-size: 0.7em;
+  }
 }
 .btn.star {
   // background-color: lighten(@main-color, 30%);
@@ -77,6 +80,20 @@ body {
     position: absolute;
     right: 0;
     top: 10px;
+  }
+}
+
+.sidebar-brand{
+  a{
+    display: inline !important;
+  }
+  .opensource-link{
+    margin-left: 5px;
+    font-size: .7em;
+    color: rgb(88, 88, 88) !important;
+    &:hover{
+      color: white !important;
+    }
   }
 }
 .siderbar-footer{

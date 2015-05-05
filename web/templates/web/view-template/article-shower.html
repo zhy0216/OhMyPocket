@@ -1,9 +1,10 @@
 <script id="article-shower-template" type="text/underscore-template">
 <div class="container-fluid">
     <div class="entry">
-        <h1><%= attributes.title %>
+        <div class="article-title">
+            <%= attributes.title %>
             <a class="original-link" href="<%= attributes.original_url %>">original link</a>
-        </h1>
+        </div>
         <hr />
         <div class="toolbar">
             <span class="btn-group btn-group-sm">

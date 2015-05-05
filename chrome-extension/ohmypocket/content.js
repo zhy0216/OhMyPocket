@@ -1,4 +1,4 @@
-var HOST = 'http://localhost:8000';
+var HOST = 'http://chromeapi.ohmypocket.com';
 
 
 
