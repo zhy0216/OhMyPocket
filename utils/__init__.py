@@ -45,8 +45,8 @@ def to_json(f):
 def required_login(f):
     @wraps(f)
     def _decorator_func(request, *args, **kwargs):
-        print "request.user.id:%s"%request.user.id
-        if request.user.id is None:
+        # print "request.user.is_authenticated():%s"%request.user.is_authenticated()
+        if not request.user.is_authenticated():
             raise NotAuthenticated("require login")
         return f(request, *args, **kwargs)
     return _decorator_func
