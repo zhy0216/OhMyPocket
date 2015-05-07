@@ -14,3 +14,18 @@ bookmark your favorite article
 
 `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
 
+
+### deploy note
+
+`gunicorn blue.wsgi --bind 127.0.0.1:8000 --pid /tmp/gunicorn.pid`
+
+
+*supervisor config*
+```
+[program:pocket]
+command=/home/yang/workspace/random-read/env/bin/gunicorn blue.wsgi --bind 127.0.0.1:8989 --pid /tmp/gunicorn.pid;
+directory=/home/yang/workspace/random-read
+user=yang
+autostart=true
+autorestart=true
+```

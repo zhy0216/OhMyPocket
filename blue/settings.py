@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -47,13 +47,10 @@ INSTALLED_APPS = (
     'api',
 )
 
-if DEBUG:
-    INSTALLED_APPS += (
-        'django_extensions',
 
-    )
-
-
+TEMPLATE_CONTEXT_PROCESSORS = {
+    'blue.context_processors.settings_variable'
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -106,7 +103,11 @@ try:
 except:
     pass
 
+if DEBUG:
+    INSTALLED_APPS += (
+        'django_extensions',
 
+    )
 
 
 
