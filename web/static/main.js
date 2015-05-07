@@ -24,9 +24,9 @@ require(['jquery', 'underscore', 'backbone',
                 Article, ArticleCollection
                 ) {
     'use strict';
-    console.log($);
-    console.log(_);
-    console.log(Backbone);
+    // console.log($);
+    // console.log(_);
+    // console.log(Backbone);
 
     var Page = {};
 
@@ -167,6 +167,22 @@ require(['jquery', 'underscore', 'backbone',
     Backbone.on("user-logout", function(){
         $('.login-sidebar').addClass('view-hide');
         $('.unlogin-sidebar').removeClass('view-hide');
+    });
+
+    Backbone.on("show-alert", function(message){
+        var $alertBar = $('#alert-bar');
+        $alertBar.find('#alert-content').html(message);
+        $alertBar.fadeIn(function(){
+            // _.delay(function(){$alertBar.slideUp('slow')}, 5000);
+        });
+    });
+
+    Backbone.on("require-login", function(data){
+        if((!data) || (data.status_code === 401)){
+            router.navigate("login", {trigger: true});
+            Backbone.trigger("show-alert", "You need login first");
+        }
+
     });
 
 

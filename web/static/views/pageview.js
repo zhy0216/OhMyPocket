@@ -7,7 +7,7 @@ function($, _, Backbone){
         model: null,
 
         initialize: function() {
-            console.log("init");
+            // console.log("init");
             if(this.model){
                 this.bindEvent();
             }
@@ -28,16 +28,16 @@ function($, _, Backbone){
             if(curView && curView === this.$el){
                 return ;
             }
+            $('#alert-bar').hide();
 
-            function _show(){
-                curView = self.$el;
-                curView.fadeIn('fast');
-            }
 
             if(curView){
-                curView.fadeOut('fast', _show);
+                curView.hide();
+                curView = self.$el;
+                curView.show();
             }else{
-                _show();
+                curView = self.$el;
+                curView.show();
             }
         },
 

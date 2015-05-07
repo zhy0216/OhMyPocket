@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone'],
-    function($, _, backbone) {
+    function($, _, Backbone) {
         'use strict';
         var Article = Backbone.Model.extend({
 
@@ -7,8 +7,11 @@ define(['jquery', 'underscore', 'backbone'],
                 var url = "/api/article/" + this.get("id") + "/star";
                 var self = this;
                 $.post(url).done(function(data) {
-                    self.set("is_star", true);
-                    callback && callback(data);
+                    Backbone.trigger("require-login", data);
+                    if(data.ok){
+                        self.set("is_star", true);
+                        callback && callback(data);
+                    }
                 })
             },
 
@@ -16,8 +19,11 @@ define(['jquery', 'underscore', 'backbone'],
                 var url = "/api/article/" + this.get("id") + "/unstar";
                 var self = this;
                 $.post(url).done(function(data) {
-                    self.set("is_star", false);
-                    callback && callback(data);
+                    Backbone.trigger("require-login", data);
+                    if(data.ok){
+                        self.set("is_star", false);
+                        callback && callback(data);
+                    }
                 })
             },
 
@@ -32,7 +38,10 @@ define(['jquery', 'underscore', 'backbone'],
                 var url = "/api/article/" + this.get("id") + "/archive";
                 var self = this;
                 $.post(url).done(function(data) {
-                    callback && callback(data);
+                    Backbone.trigger("require-login", data);
+                    if(data.ok){
+                        callback && callback(data);
+                    }
                 })
             },
 
@@ -40,7 +49,10 @@ define(['jquery', 'underscore', 'backbone'],
                 var url = "/api/article/" + this.get("id") + "/delete";
                 var self = this;
                 $.post(url).done(function(data) {
-                    callback && callback(data);
+                    Backbone.trigger("require-login", data);
+                    if(data.ok){
+                        callback && callback(data);
+                    }
                 })
             }
 
