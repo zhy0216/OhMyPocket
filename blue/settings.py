@@ -107,8 +107,14 @@ if DEBUG:
 
 
 
-
-
+TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
+"django.template.context_processors.debug",
+"django.template.context_processors.i18n",
+"django.template.context_processors.media",
+"django.template.context_processors.static",
+"django.template.context_processors.tz",
+"django.contrib.messages.context_processors.messages") \
+                              + ("blue.template_processors.debug_variable_inject", )
 
 
 

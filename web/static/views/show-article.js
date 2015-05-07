@@ -16,7 +16,7 @@ define(['jquery', 'underscore', 'backbone', 'views/pageview'], function($, _, ba
         },
         archive: function() {
             this.model.archive();
-            this.$el.slideUp();
+            // this.$el.slideUp();
         },
         render: function(){
             this.$el.html(this.template(this.model));
