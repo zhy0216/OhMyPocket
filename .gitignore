@@ -3,6 +3,7 @@ todo
 style.css
 local_settings.py
 download-image/
+main_bundle.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

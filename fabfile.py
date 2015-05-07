@@ -28,4 +28,16 @@ def watch_less():
             "--recursive --command='lessc %s/web/static/style.less "%CURRENT_PATH +
              "> %s/web/static/style.css'"%CURRENT_PATH )
     
-    
+def compile_less():
+    """compile less"""
+    local("lessc %s/web/static/style.less "%CURRENT_PATH +
+             "> %s/web/static/style.css"%CURRENT_PATH )     
+
+def compile_js():
+    """compile js"""
+    with lcd("%s/web/static"%CURRENT_PATH):
+        local("r.js -o build.js")    
+
+
+
+
