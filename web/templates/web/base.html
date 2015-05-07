@@ -48,12 +48,12 @@
 
     </div>
     <!-- /#wrapper -->
-    {%if settings.DEBUG%}
+    {%if DEBUG%}
     <script data-main="static/main"  src="/static/libs/require.js"></script>
     {%else%}
     <script src="static/main_bundle.js"></script>
     {%endif%}
-    
+
     {%block extra_stuff%}
 
     {%endblock%}

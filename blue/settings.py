@@ -48,10 +48,6 @@ INSTALLED_APPS = (
 )
 
 
-TEMPLATE_CONTEXT_PROCESSORS = {
-    'blue.context_processors.settings_variable'
-}
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
