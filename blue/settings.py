@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "web/static"),)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -99,7 +99,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 IMAGE_PREFIX = "/static/download-image/"
 MEDIA_ROOT = "rewriteme"
-
+STATIC_ROOT = "rewriteme"
 
 try:
     from local_settings import *
