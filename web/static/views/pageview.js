@@ -8,6 +8,7 @@ function($, _, Backbone){
 
         initialize: function() {
             // console.log("init");
+            this.undelegateEvents();
             if(this.model){
                 this.bindEvent();
             }
@@ -23,9 +24,19 @@ function($, _, Backbone){
             this.bindEvent();
         },
 
+        hide: function(){
+            this.undelegateEvents();
+            this.$el.hide();
+        },
+
+        show: function(){
+            this.delegateEvents();
+            this.$el.show();
+        },
+
         switchView: function(){
             var self = this;
-            if(curView && curView === this.$el){
+            if(curView && curView === this){
                 return ;
             }
 
@@ -33,10 +44,10 @@ function($, _, Backbone){
 
             if(curView){
                 curView.hide();
-                curView = self.$el;
+                curView = self;
                 curView.show();
             }else{
-                curView = self.$el;
+                curView = self;
                 curView.show();
             }
         },

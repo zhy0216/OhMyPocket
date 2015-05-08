@@ -17,6 +17,7 @@ define(['jquery', 'underscore', 'backbone', 'views/pageview'], function($, _, ba
         archive: function() {
             this.model.archive();
             // this.$el.slideUp();
+            Backbone.trigger("url-navigate", "random-walk", {trigger: true});
         },
         render: function(){
             this.$el.html(this.template(this.model));

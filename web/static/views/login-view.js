@@ -6,7 +6,10 @@ function($, _, backbone, PageView){
             'click .login-btn': 'login',
         },
 
-        success: function(){},
+        success: function(){
+            Backbone.trigger("user-login");
+            Backbone.trigger("url-navigate", "random-walk", {trigger: true});
+        },
 
         login: function(){
             var username = $("#login-view .username").val();
@@ -19,8 +22,6 @@ function($, _, backbone, PageView){
                 console.log(data);
                 if(data.ok){
                     self.success();
-                    Backbone.trigger("user-login");
-                    Backbone.trigger("url-navigate", "random-walk", {trigger: true});
                 }else{
                     Backbone.trigger("show-alert", data.detail);
                 }

@@ -64,6 +64,8 @@ require(['jquery', 'underscore', 'backbone',
             Page.login.switchView();
         },
 
+       
+
         loginPopup: function(){
             var popView = new LoginView({el: "#login-view"});
             popView.success = function(){
@@ -197,7 +199,6 @@ require(['jquery', 'underscore', 'backbone',
             router.navigate("login", {trigger: true});
             Backbone.trigger("show-alert", "You need login first");
         }
-
     });
 
 
