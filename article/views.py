@@ -34,9 +34,11 @@ def unstar_article(request, article_id):
 def archive_article(request, article_id):
     user = request.user
     article = Article.objects.get(id=article_id)
-    rs = UserPostArticle.get_rs_by_user_article(user, article)
-    if rs:
-        rs.delete()
+    klass_list = [UserPostArticle, UserStarArticle]
+    for klass in klass_list:
+        rs = klass.get_rs_by_user_article(user, article)
+        if rs:
+            rs.delete()
     rs, created = UserArchiveArticle.objects.get_or_create(article=article, user=user)
     return {}
 

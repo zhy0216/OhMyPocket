@@ -63,7 +63,7 @@ class UserArticleRelationship(models.Model):
     @classmethod
     def get_rs_by_user_article(cls, user, article, filters=None):
         filters = filters or {}
-        return cls.objects.filter(user=user).filter(**filters).first()
+        return cls.objects.filter(user=user, article=article).filter(**filters).first()
 
     @classmethod
     def has_rs_between_user_article(cls, user, article):

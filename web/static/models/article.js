@@ -37,12 +37,7 @@ define(['jquery', 'underscore', 'backbone'],
             archive: function(callback){
                 var url = "/api/article/" + this.get("id") + "/archive";
                 var self = this;
-                $.post(url).done(function(data) {
-                    Backbone.trigger("require-login", data);
-                    if(data.ok){
-                        callback && callback(data);
-                    }
-                })
+                return $.post(url);
             },
 
             delete: function(callback){

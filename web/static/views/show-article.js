@@ -14,10 +14,13 @@ define(['jquery', 'underscore', 'backbone', 'views/pageview'], function($, _, ba
         unstar: function() {
             this.model.unstar();
         },
-        archive: function() {
-            this.model.archive();
-            // this.$el.slideUp();
-            Backbone.trigger("url-navigate", "random-walk", {trigger: true});
+        archive: function(e) {
+            this.model.archive().done(function(data) {
+                Backbone.trigger("require-login", data);
+                if(data.ok){
+                    Backbone.trigger("url-navigate", "random-walk", {trigger: true});
+                }
+            });
         },
         render: function(){
             this.$el.html(this.template(this.model));
