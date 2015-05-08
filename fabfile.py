@@ -38,8 +38,10 @@ def compile_js():
     with lcd("%s/web/static"%CURRENT_PATH):
         local("r.js -o build.js")    
 
-def send_files():
+def deploy():
     '''send file to my vps'''
+    compile_less()
+    compile_js()
     local('scp web/static/style.css vps:/home/yang/static')
     local('scp web/static/main_bundle.js vps:/home/yang/static')
 
