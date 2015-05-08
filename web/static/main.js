@@ -14,21 +14,22 @@ require.config({
 
 require(['jquery', 'underscore', 'backbone', 
          'views/login-view', 'views/register-view', 'views/article-list-item-view',  'views/show-article',
-         'views/random-walk', 'views/inbox', 'views/mystar', 'views/archive',
+         'views/random-walk', 'views/inbox', 'views/mystar', 'views/archive', 'views/message',
          // views stuff
          'models/article', 'models/article-collection',  // models
          'domReady!', 'bootstrap'], 
         function($, _, Backbone,
                 LoginView, RegisterView, ArticleListItemView, ShowArticle,
-                RandomWalk, Inbox, MyStar, Archive,
+                RandomWalk, Inbox, MyStar, Archive, MessageContainerView,
                 Article, ArticleCollection
                 ) {
     'use strict';
     // console.log($);
     // console.log(_);
     // console.log(Backbone);
-
     var Page = {};
+
+    var MESSAGEVIEW = new MessageContainerView({el: "#message-container"});
 
     Page.login = new LoginView({el: "#login-view"});
     Page.register = new RegisterView({el: "#register-view"});
@@ -102,7 +103,7 @@ require(['jquery', 'underscore', 'backbone',
                     router.navigate("article/" + article.get("id"), {trigger: false});
                 }).error(function(){
                     router.navigate("inbox", {trigger: true});
-                    Backbone.trigger("show-alert", "You have read all articles");
+                    Backbone.trigger("show-alert", "You have read all articles", true);
                 });
         },
 
@@ -111,13 +112,14 @@ require(['jquery', 'underscore', 'backbone',
             Page.inbox.post("/api/article/inbox/")
                 .done(function(data){
                     console.log(data);
-                    if(data.articles.length === 0){
-                        Backbone.trigger("show-alert", "You do not have any articles here");
-                    }
+                    
                     var articleCollection = new ArticleCollection(data.articles);
                     Page.inbox.setModel(articleCollection);
                     Page.inbox.render();
                     Page.inbox.switchView();
+                    if(data.articles.length === 0){
+                        Backbone.trigger("show-alert", "You do not have any articles here");
+                    }
                 });
         },
 
@@ -126,13 +128,14 @@ require(['jquery', 'underscore', 'backbone',
             Page.mystar.post("/api/article/star/")
                 .done(function(data){
                     console.log(data);
-                    if(data.articles.length === 0){
-                        Backbone.trigger("show-alert", "You do not have any articles here");
-                    }
+                    
                     var articleCollection = new ArticleCollection(data.articles);
                     Page.mystar.setModel(articleCollection);
                     Page.mystar.render();
                     Page.mystar.switchView();
+                    if(data.articles.length === 0){
+                        Backbone.trigger("show-alert", "You do not have any articles here");
+                    }
                 });
         },
 
@@ -140,13 +143,14 @@ require(['jquery', 'underscore', 'backbone',
             Page.archive.post("/api/article/archive/")
                 .done(function(data){
                     console.log(data);
-                    if(data.articles.length === 0){
-                        Backbone.trigger("show-alert", "You do not have any articles here");
-                    }
+                    
                     var articleCollection = new ArticleCollection(data.articles);
                     Page.archive.setModel(articleCollection);
                     Page.archive.render();
                     Page.archive.switchView();
+                    if(data.articles.length === 0){
+                        Backbone.trigger("show-alert", "You do not have any articles here");
+                    }
                 });
         },
 
@@ -179,12 +183,13 @@ require(['jquery', 'underscore', 'backbone',
         $('.unlogin-sidebar').removeClass('view-hide');
     });
 
-    Backbone.on("show-alert", function(message){
-        var $alertBar = $('#alert-bar');
-        $alertBar.find('#alert-content').html(message);
-        $alertBar.fadeIn(function(){
-            // _.delay(function(){$alertBar.slideUp('slow')}, 5000);
-        });
+    Backbone.on("show-alert", function(message, unclear){
+        MESSAGEVIEW.collection.addMessage(message);
+        MESSAGEVIEW.show(unclear);
+    });
+
+    Backbone.on("close-alert", function(){
+        MESSAGEVIEW.hide();
     });
 
     Backbone.on("require-login", function(data){

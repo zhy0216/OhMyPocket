@@ -6,7 +6,11 @@ define(['jquery', 'underscore', 'backbone'],
         });
 
         var MessageCollection = Backbone.Collection.extend({
-            model: Article,
+            model: Message,
+
+            clear: function(){
+                this.reset([], {silent: true})
+            },
 
             addMessage: function(content){ // content ==> str
                 var message = new Message({content: content});

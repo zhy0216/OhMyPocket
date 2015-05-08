@@ -1,27 +1,38 @@
-define(['jquery', 'underscore', 'backbone'],
-    function($, _, backbone) {
+define(['jquery', 'underscore', 'backbone', 'models/message'],
+    function($, _, backbone, Message) {
         'use strict';
-        var MessageView = Backbone.View.extend({
+        var MessageContainerView = Backbone.View.extend({
+            collection: new Message.Collection(),
 
             initialize: function() {
                 this.listenTo(this.collection, "add", this.render);
             },
 
             hide: function(){
-                this.$el.hide();
+                if(this.collection.length === 0){
+                    this.$el.hide();
+                }
             },
 
-            show: function(){
+            show: function(unclear){
                 this.$el.show();
+                if(!unclear){
+                    this.collection.clear();
+                }
+            },
+
+            render: function(){
+                this.$el.html(this.template(this.collection));
             },
 
             template: _.template($("#alert-message-template").html()),
 
         });
 
-
-        return MessageView;
-
-
+        return MessageContainerView;
 
 })
+
+
+
+

@@ -1,0 +1,8 @@
+<script id="alert-message-template" type="text/underscore-template">
+<% _.each(models, function(model) { %> 
+<div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="alert-content"><%= model.attributes.content %></div>
+</div>
+<% }); %>
+</script>
