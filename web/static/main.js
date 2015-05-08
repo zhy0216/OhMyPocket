@@ -102,6 +102,7 @@ require(['jquery', 'underscore', 'backbone',
                     router.navigate("article/" + article.get("id"), {trigger: false});
                 }).error(function(){
                     router.navigate("inbox", {trigger: true});
+                    Backbone.trigger("show-alert", "You have read all articles");
                 });
         },
 
@@ -110,6 +111,9 @@ require(['jquery', 'underscore', 'backbone',
             Page.inbox.post("/api/article/inbox/")
                 .done(function(data){
                     console.log(data);
+                    if(data.articles.length === 0){
+                        Backbone.trigger("show-alert", "You do not have any articles here");
+                    }
                     var articleCollection = new ArticleCollection(data.articles);
                     Page.inbox.setModel(articleCollection);
                     Page.inbox.render();
@@ -122,6 +126,9 @@ require(['jquery', 'underscore', 'backbone',
             Page.mystar.post("/api/article/star/")
                 .done(function(data){
                     console.log(data);
+                    if(data.articles.length === 0){
+                        Backbone.trigger("show-alert", "You do not have any articles here");
+                    }
                     var articleCollection = new ArticleCollection(data.articles);
                     Page.mystar.setModel(articleCollection);
                     Page.mystar.render();
@@ -133,6 +140,9 @@ require(['jquery', 'underscore', 'backbone',
             Page.archive.post("/api/article/archive/")
                 .done(function(data){
                     console.log(data);
+                    if(data.articles.length === 0){
+                        Backbone.trigger("show-alert", "You do not have any articles here");
+                    }
                     var articleCollection = new ArticleCollection(data.articles);
                     Page.archive.setModel(articleCollection);
                     Page.archive.render();

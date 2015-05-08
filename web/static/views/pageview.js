@@ -28,7 +28,7 @@ function($, _, Backbone){
             if(curView && curView === this.$el){
                 return ;
             }
-            $('#alert-bar').hide();
+            // $('#alert-bar').hide();
 
 
             if(curView){

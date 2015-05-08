@@ -13,7 +13,6 @@ define(['jquery', 'underscore', 'backbone'],
             },
 
             initialize: function() {
-                console.log("init");
                 this.listenTo(this.model, "change", this.render);
             },
 
