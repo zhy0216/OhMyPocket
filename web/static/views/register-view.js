@@ -21,6 +21,8 @@ function($, _, backbone, PageView){
                     self.success();
                     Backbone.trigger("user-login");
                     Backbone.trigger("url-navigate", "random-walk", {trigger: true});
+                }else{
+                    Backbone.trigger("show-alert", data.detail);
                 }
             });
         },
