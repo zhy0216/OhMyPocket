@@ -3,117 +3,118 @@
 @main-color: #337ab7;
 
 @font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Lato Light'), local('Lato-Light'), url(lato300.woff) format('woff');
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Lato Light'), local('Lato-Light'), url(lato300.woff) format('woff');
 }
 @font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Lato Bold'), local('Lato-Bold'), url(lato700.woff) format('woff');
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Lato Bold'), local('Lato-Bold'), url(lato700.woff) format('woff');
 }
 body {
-  font: 16px/1.5 Lato;
-  font-weight: 300;
+    font: 16px/1.5 Lato;
+    font-weight: 300;
 }
-
-.entry{
-  em{
-    -webkit-text-emphasis: none !important;
-  }
-
-
+.entry {
+    em {
+        -webkit-text-emphasis: none !important;
+    }
 }
-
-#alert-bar{
-  display: none;
+#alert-bar {
+    display: none;
 }
-
 #about-shower li {
-  position: absolute;
-  bottom: 0;
+    position: absolute;
+    bottom: 0;
 }
 #nav-search {
-  border: none;
-  border-radius: 0px;
-  padding-left: 21px;
-  background: #eee;
-}
-// .toolbar .btn:hover{
-//   .glyphicon:not(.glyphicon-trash){
-//     color: @main-color;
-//   }
-// }
-
-.entry img, .entry video{
-  display: block;
+    border: none;
+    border-radius: 0px;
+    padding-left: 21px;
+    background: #eee;
 }
 
-
+.entry img, .entry video {
+    display: block;
+}
 .view-hide {
-  display: none;
+    display: none;
 }
-.entry .article-title{
-  margin-bottom: 0;
-  .original-link {
-    font-size: 0.7em;
-  }
+.entry .article-title {
+    margin-bottom: 0;
+
+    .original-link {
+        font-size: 0.7em;
+    }
 }
 .btn.star {
-  // background-color: lighten(@main-color, 30%);
-  color: @main-color;
+    // background-color: lighten(@main-color, 30%);
+    color: @main-color;
 }
 .article-list-item {
-  padding: 10px;
-  border-bottom: 1px solid whitesmoke;
-  position: relative;
+    padding: 10px;
+    border-bottom: 1px solid whitesmoke;
+    position: relative;
 
-  &:hover {
-    border-bottom: 1px solid @main-color;
+    &:hover {
+        border-bottom: 1px solid @main-color;
 
+        .toolbar {
+            display: block;
+        }
+    }
+    .title {
+        a {
+            color: #424b50;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    }
+    .original-link {
+        font-size: initial;
+    }
     .toolbar {
-      display: block;
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 10px;
     }
-  }
-  .title {
+}
+.sidebar-brand {
     a {
-      color: #424b50;
+        display: inline !important;
     }
-    a:hover {
-      text-decoration: none;
+    .opensource-link {
+        margin-left: 5px;
+        font-size: .7em;
+        color: rgb(88, 88, 88) !important;
+
+        &:hover {
+            color: white !important;
+        }
     }
-  }
-  .original-link {
-    font-size: initial;
-  }
-  .toolbar {
-    display: none;
+}
+.siderbar-footer {
     position: absolute;
-    right: 0;
-    top: 10px;
-  }
+    bottom: 0;
+    width: 100%;
+
+    a {
+        color: inherit;
+    }
+}
+#main-view {
+    .creazy-man {
+        background-image: url("/static/image/crazy-guy.jpg");
+        width: 100px;
+        height: 135px;
+        background-size: cover;
+    }
+    .title{
+    }
 }
 
-.sidebar-brand{
-  a{
-    display: inline !important;
-  }
-  .opensource-link{
-    margin-left: 5px;
-    font-size: .7em;
-    color: rgb(88, 88, 88) !important;
-    &:hover{
-      color: white !important;
-    }
-  }
-}
-.siderbar-footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  a{
-    color: inherit;
-  }
-}
