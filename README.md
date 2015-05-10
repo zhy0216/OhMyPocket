@@ -1,7 +1,11 @@
-OhMyPocket
+OhMyPocket --- opensource port of [getpocket.com](getpocket.com)
 ===========
 
 bookmark your favorite article
+
+
+website: [http://ohmypocket.com/](http://ohmypocket.com/)
+[chrome extension](https://chrome.google.com/webstore/detail/ohmypocket/fohphbjhkhgnkcpbjfieodolhbllaeff)
 
 
 ## run rq
@@ -15,7 +19,7 @@ bookmark your favorite article
 `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
 
 
-### deploy note
+## deploy note
 
 `gunicorn blue.wsgi --bind 127.0.0.1:8000 --pid /tmp/gunicorn.pid`
 
