@@ -1,4 +1,4 @@
-OhMyPocket --- opensource port of [getpocket.com](getpocket.com)
+OhMyPocket --- opensource port of [getpocket.com](https://getpocket.com/)
 ===========
 
 bookmark your favorite article
