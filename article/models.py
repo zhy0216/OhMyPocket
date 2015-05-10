@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 from django.contrib.auth.models import User
+import requests
+import chardet
 
 from utils import redis_conn
 
@@ -77,7 +81,9 @@ class UserPostArticle(UserArticleRelationship):
         import urllib
         article  = self.article
         if not article.finished:
-            html = urllib.urlopen(article.original_url).read()
+            response = requests.get(article.original_url)
+            response.encoding = chardet.detect(response.content)["encoding"]
+            html = response.text
             article.content = Document(html).summary()
             article.title = Document(html).short_title()
             article._catch_image()

@@ -4,11 +4,11 @@ from urlparse import urlparse, urljoin
 import base64
 import requests
 from bs4 import BeautifulSoup
-from blue.settings import MEDIA_ROOT, IMAGE_PREFIX
+from blue.settings import DOWNLOAD_IMAGE_FOLDER, IMAGE_PREFIX
 
 ''' download the image from the article '''
 
-IMAGE_DOWNLOAD_FOLDER = MEDIA_ROOT + "download-image/"
+IMAGE_DOWNLOAD_FOLDER = DOWNLOAD_IMAGE_FOLDER
 
 
 def get_absolute_url(article_url, image_url):

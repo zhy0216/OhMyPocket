@@ -92,6 +92,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 IMAGE_PREFIX = "/static/download-image/"
 MEDIA_ROOT = "rewriteme"
+DOWNLOAD_IMAGE_FOLDER = "rewriteme"
 STATIC_ROOT = "rewriteme"
 
 try:
