@@ -21,6 +21,9 @@ def get_absolute_url(article_url, image_url):
         or image_url.startswith("https://"):
         return image_url
 
+    if image_url.startswith("//"):
+        return "http:" + image_url
+
     if image_url.startswith("/"):
         return host + image_url
 
@@ -29,6 +32,8 @@ def get_absolute_url(article_url, image_url):
 def get_name(url):
     name = base64.b64encode(url)
     dot_index = url.rfind('.')
+    if dot_index < 0:
+        return None
     question_mark_index = url.rfind('?')
     if(question_mark_index > dot_index):
         return name + url[dot_index:question_mark_index]
@@ -44,13 +49,15 @@ def change_image(article):
         if src:
             absolute_url = get_absolute_url(article.original_url, src)
             name = get_name(absolute_url)
+            if name is None:
+                continue
             img['src'] = IMAGE_PREFIX + name
             # download image
             # its better to use another worker
             download_image(absolute_url, name)
-
-    article.content = ''.join(map(str, soup.body.contents))
-    article.save()
+            ## catch the image can be caught 
+            article.content = ''.join(map(str, soup.body.contents))
+            article.save()
 
 
 

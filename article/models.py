@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 import requests
 import chardet
 
-from utils import redis_conn
+from utils import redis_conn, q
 
 '''
 primary means whether the article is the 
@@ -81,16 +81,17 @@ class UserPostArticle(UserArticleRelationship):
         import urllib
         article  = self.article
         if not article.finished:
-            response = requests.get(article.original_url)
+            header = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:32.0) Gecko/20100101 Firefox/32.0',}
+            response = requests.get(article.original_url, headers=header)
             response.encoding = chardet.detect(response.content)["encoding"]
             html = response.text
             article.content = Document(html).summary()
             article.title = Document(html).short_title()
-            article._catch_image()
             article.primary = True # TODO
             article.finished = True
             redis_conn.sadd(Article.ALL_PRIMARY_IDS_KEY, article.id)
             article.save()
+            q.enqueue(article._catch_image)
 
     def __unicode__(self):
         return "[UserPostArticle: <%s -> %s>]"%(self.user, self.article)
