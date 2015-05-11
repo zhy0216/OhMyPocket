@@ -46,7 +46,7 @@ require(['jquery', 'underscore', 'backbone',
     var router = new (Backbone.Router.extend({
 
         routes: {
-            "": "index",
+            "/": "index",
             "login": "login",
             "login-popup": "loginPopup",
             'register': 'register',
@@ -66,8 +66,6 @@ require(['jquery', 'underscore', 'backbone',
         login: function(){
             Page.login.switchView();
         },
-
-       
 
         loginPopup: function(){
             var popView = new LoginView({el: "#login-view"});
@@ -105,7 +103,7 @@ require(['jquery', 'underscore', 'backbone',
                     Page.showArticle.setModel(article);
                     Page.showArticle.render();
                     Page.showArticle.switchView();
-                    router.navigate("article/" + article.get("id"), {trigger: false});
+                    router.navigate("article/" + article.get("id"), {trigger: false, replace: true});
                 }).error(function(){
                     router.navigate("inbox", {trigger: true});
                     Backbone.trigger("show-alert", "You have read all articles", true);
