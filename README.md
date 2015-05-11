@@ -9,6 +9,12 @@ website: [http://ohmypocket.com/](http://ohmypocket.com/)
 [chrome extension](https://chrome.google.com/webstore/detail/ohmypocket/fohphbjhkhgnkcpbjfieodolhbllaeff)
 
 
+## compile less and require.js
+
+> lessc and r.js is required
+
+`fab compile_less` && `fab compile_js`
+
 ## run rq
 
 `DJANGO_SETTINGS_MODULE=blue.settings rqworker`
@@ -31,6 +37,22 @@ website: [http://ohmypocket.com/](http://ohmypocket.com/)
 command=/home/yang/workspace/random-read/env/bin/gunicorn blue.wsgi --bind 127.0.0.1:8989 --pid /tmp/gunicorn.pid;
 directory=/home/yang/workspace/random-read
 user=yang
+
 autostart=true
 autorestart=true
 ```
+
+
+## TODO
+- [ ] make search, consider whoosh
+- [ ] organize css files
+- [ ] user can choose the language he interested in
+- [ ] cross sub-domain auth
+- [ ] make donation button :D
+
+
+
+
+
+
+
