@@ -46,7 +46,7 @@ require(['jquery', 'underscore', 'backbone',
     var router = new (Backbone.Router.extend({
 
         routes: {
-            "/": "index",
+            "": "index",
             "login": "login",
             "login-popup": "loginPopup",
             'register': 'register',
