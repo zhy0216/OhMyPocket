@@ -73,6 +73,9 @@ class UserArticleRelationship(models.Model):
     def has_rs_between_user_article(cls, user, article):
         return bool(cls.objects.filter(user=user, article=article).first())
 
+    def __unicode__(self):
+        return u"[UserPostArticle: <%s -> %s>]"%(self.user, self.article)
+
 class UserPostArticle(UserArticleRelationship):
     # to inbox
 
@@ -93,8 +96,6 @@ class UserPostArticle(UserArticleRelationship):
             article.save()
             q.enqueue(article._catch_image)
 
-    def __unicode__(self):
-        return "[UserPostArticle: <%s -> %s>]"%(self.user, self.article)
 
 
 class UserReadArticle(UserArticleRelationship):
