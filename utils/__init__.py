@@ -4,6 +4,8 @@ from redis import Redis, StrictRedis
 from rq import Queue
 import ujson
 
+from search.whoosh_redis_storage import RedisStore
+
 redis_conn = StrictRedis()
 # no args implies the default queue
 q = Queue(connection=redis_conn)
@@ -51,7 +53,26 @@ def required_login(f):
         return f(request, *args, **kwargs)
     return _decorator_func
 
+def _get_whoosh_ix():
+    # refer to flask-whooshalchemy
+    # use FileStorage
 
+    ix = {}
+    def _(schemaName, schema):
+        storage = RedisStore(redis_conn, schemaName)
+        # print "ix.get(schemaName):%s"%ix.get(schemaName)
+        if ix.get(schemaName) is None:
+            if storage.folder_exists(schemaName): ## problem here
+                ix[schemaName] = storage.open_index()
+            else:
+                # print "create Index"
+                ix[schemaName] = storage.create_index(schema)
+        return ix.get(schemaName)
+
+    return _
+
+
+get_whoosh_ix = _get_whoosh_ix()
 
 
 

@@ -101,6 +101,7 @@ class UserPostArticle(UserArticleRelationship):
             article.finished = True
             redis_conn.sadd(Article.ALL_PRIMARY_IDS_KEY, article.id)
             article.save()
+            q.enqueue(article.make_keyword_index)
             q.enqueue(article._catch_image)
 
 
