@@ -35,7 +35,9 @@ class Article(models.Model):
         from search.whoosh_schema import ArticleSchema
         ix = get_whoosh_ix("article", ArticleSchema)
         writer = ix.writer()
-        writer.add_document(content=self.content, article_id=unicode(self.id))
+        writer.add_document(content=self.content, 
+                            article_id=unicode(self.id),
+                            title=self.title)
         writer.commit()
 
     def to_dict(self, exclude=None):
