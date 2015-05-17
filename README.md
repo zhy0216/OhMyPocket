@@ -16,7 +16,7 @@ website: [http://ohmypocket.com/](http://ohmypocket.com/)
 
 ## run rq
 
-`DJANGO_SETTINGS_MODULE=blue.settings rqworker`
+`python myworker.py`
 
 ## install libmysqlclient-dev to install mysql-python  
 

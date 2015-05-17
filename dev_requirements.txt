@@ -7,6 +7,7 @@ MySQL-python==1.2.5
 Pillow==2.5.1
 PyYAML==3.11
 Werkzeug==0.9.6
+Whoosh==2.7.0
 argh==0.26.1
 arrow==0.5.4
 beautifulsoup4==4.3.2
@@ -20,6 +21,7 @@ greenlet==0.4.2
 gunicorn==19.3.0
 html2text==2014.7.3
 itsdangerous==0.24
+jieba==0.36.2
 lxml==3.4.4
 paramiko==1.15.2
 pathtools==0.1.2
