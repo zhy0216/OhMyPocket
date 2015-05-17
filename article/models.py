@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 import requests
 import chardet
 
-from utils import redis_conn, q
+from utils import redis_conn, q, get_whoosh_ix
 
 '''
 primary means whether the article is the 
@@ -30,6 +30,13 @@ class Article(models.Model):
     def _catch_image(self):
         from utils.image_crawler import change_image
         change_image(self)
+
+    def make_keyword_index(self):
+        from search.whoosh_schema import ArticleSchema
+        ix = get_whoosh_ix("article", ArticleSchema)
+        writer = ix.writer()
+        writer.add_document(content=self.content, article_id=unicode(self.id))
+        writer.commit()
 
     def to_dict(self, exclude=None):
         exclude = exclude or []
