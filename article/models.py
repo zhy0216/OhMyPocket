@@ -45,7 +45,7 @@ class Article(models.Model):
 
 
     def __unicode__(self):
-        return "<Article: %s>"%self.title
+        return u"<Article: %s>"%self.title
 
 
 ### user -- article relationship
@@ -104,14 +104,14 @@ class UserReadArticle(UserArticleRelationship):
     # to nothing only record this value
 
     def __unicode__(self):
-        return "[UserReadArticle: <%s -> %s>]"%(self.user, self.article)
+        return u"[UserReadArticle: <%s -> %s>]"%(self.user, self.article)
 
 
 class UserStarArticle(UserArticleRelationship):
     # to star
 
     def __unicode__(self):
-        return "[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
+        return u"[UserStarArticle: <%s -> %s>]"%(self.user, self.article)
 
 class UserArchiveArticle(UserArticleRelationship):
     '''this is used when user archive a article
@@ -128,7 +128,7 @@ class UserRemoveArticle(UserArticleRelationship):
 
 
     def __unicode__(self):
-        return "[UserRemoveArticle: <%s -> %s>]"%(self.user, self.article)
+        return u"[UserRemoveArticle: <%s -> %s>]"%(self.user, self.article)
 
 
 
