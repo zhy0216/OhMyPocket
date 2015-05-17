@@ -202,6 +202,35 @@ require(['jquery', 'underscore', 'backbone',
         }
     });
 
+    // patch
+    if (typeof String.prototype.startsWith != 'function') {
+      String.prototype.startsWith = function (str){
+        return this.slice(0, str.length) == str;
+      };
+    } 
+
+    $(document).on("keydown", ".login-sidebar #nav-search",function(e){
+        if (e.which !== 13) {
+            return ;
+        }
+        var $this = $(this);
+        var content = $this.val();
+
+        // check if this is a link
+        if(content.startsWith("http://") || content.startsWith("https://")){
+            $.post("/api/article/add", {
+                url: content
+            }).done(function(resp) {
+                if (resp.ok) {
+                    //done
+                    
+                }
+            })
+        }
+
+
+    });
+
 
     Backbone.history.start();
 
