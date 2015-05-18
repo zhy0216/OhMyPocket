@@ -37,6 +37,7 @@ function($, _, Backbone){
         switchView: function(){
             var self = this;
             if(curView && curView === this){
+                Backbone.trigger("close-alert");
                 return ;
             }
 

@@ -13,16 +13,18 @@ require.config({
 });
 
 require(['jquery', 'underscore', 'backbone', 
-         'views/pageview',
+         'views/pageview', 
          'views/login-view', 'views/register-view', 'views/article-list-item-view',  'views/show-article',
-         'views/random-walk', 'views/inbox', 'views/mystar', 'views/archive', 'views/message',
+         'views/random-walk', 'views/inbox', 'views/mystar', 
+         'views/archive', 'views/message', 'views/search',
          // views stuff
          'models/article', 'models/article-collection',  // models
          'domReady!', 'bootstrap'], 
         function($, _, Backbone,
-                PageView,
+                PageView, 
                 LoginView, RegisterView, ArticleListItemView, ShowArticle,
-                RandomWalk, Inbox, MyStar, Archive, MessageContainerView,
+                RandomWalk, Inbox, MyStar, 
+                Archive, MessageContainerView, Search, 
                 Article, ArticleCollection
                 ) {
     'use strict';
@@ -37,6 +39,7 @@ require(['jquery', 'underscore', 'backbone',
     Page.login = new LoginView({el: "#login-view"});
     Page.register = new RegisterView({el: "#register-view"});
     Page.showArticle = new ShowArticle({el: "#article-view"});
+    Page.search = new Search({el: "#search-view"});
     Page.randomWalk = new RandomWalk();
     Page.inbox = new Inbox({el: "#inbox-view"});
     Page.mystar = new MyStar({el: "#star-view"});
@@ -56,6 +59,7 @@ require(['jquery', 'underscore', 'backbone',
             'inbox': 'showInbox',
             'mystar': 'showStarArticles',
             'archive': 'showArchive',
+            'search?q=:keyword': 'search',
             'logout': 'logout',
         },
 
@@ -94,6 +98,21 @@ require(['jquery', 'underscore', 'backbone',
                 Backbone.trigger("user-logout");
                 router.navigate("random-walk", {trigger: true});
             });
+        },
+
+        search: function(keyword){
+            Page.search.post("/api/article/search?q="+keyword)
+                .done(function(data){
+                    console.log(data);
+                    
+                    var articleCollection = new ArticleCollection(data.articles);
+                    Page.search.setModel(articleCollection);
+                    Page.search.render();
+                    Page.search.switchView();
+                    if(data.articles.length === 0){
+                        Backbone.trigger("show-alert", "No search results");
+                    }
+                });
         },
 
         randomWalk: function(){
@@ -221,14 +240,21 @@ require(['jquery', 'underscore', 'backbone',
 
         // check if this is a link
         if(linkRex.test(content)){
+            if(!content.startsWith("http") || !content.startsWith("https")){
+                content = "http://" + content;
+            }
+
             $.post("/api/article/add", {
                 url: content
             }).done(function(resp) {
                 if (resp.ok) {
                     //done
-                    
+                    $this.val("");
+                    router.navigate("inbox", {trigger: true});
                 }
             })
+        }else{
+            router.navigate("search?q=" + content, {trigger: true});
         }
 
 

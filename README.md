@@ -69,8 +69,8 @@ autorestart=true
 
 
 ## TODO
-- [ ] make search, consider whoosh
-- [ ] organize css files
+- [x] make search, consider whoosh
+- [x] organize css files
 - [ ] user can choose the language he interested in
 - [ ] cross sub-domain auth
 - [ ] reposive design??
