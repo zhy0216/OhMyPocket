@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^$', "web.views.index_view"),
     (r'^api/', include('api.urls')),
     (r'^web/', include('web.urls')),
+    (r'^mobile/', include('mobile.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )
