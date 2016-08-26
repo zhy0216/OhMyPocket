@@ -3,7 +3,7 @@ OhMyPocket --- opensource port of [getpocket.com](https://getpocket.com/)
 
 bookmark your favorite article and explore [Serendipity](http://en.wikipedia.org/wiki/Serendipity)
 
-website: [http://ohmypocket.com/](http://ohmypocket.com/)
+website: [http://ohmypocket.lazyang.com/](http://ohmypocket.lazyang.com/)
 
 [chrome extension](https://chrome.google.com/webstore/detail/ohmypocket/fohphbjhkhgnkcpbjfieodolhbllaeff)
 
@@ -69,11 +69,9 @@ autorestart=true
 
 
 ## TODO
-- [x] make search, consider whoosh
-- [x] organize css files
 - [ ] user can choose the language he interested in
 - [ ] cross sub-domain auth
-- [ ] reposive design??
+- [ ] reposive design
 - [ ] make donation button :D
 
 
