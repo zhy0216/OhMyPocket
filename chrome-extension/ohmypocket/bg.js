@@ -1,4 +1,4 @@
-var HOST = 'http://chromeapi.ohmypocket.com';
+var HOST = 'http://ohmypocket.lazyang.com';
 
 
 // add the href directly 

@@ -7,6 +7,14 @@ website: [http://ohmypocket.lazyang.com/](http://ohmypocket.lazyang.com/)
 
 [chrome extension](https://chrome.google.com/webstore/detail/ohmypocket/fohphbjhkhgnkcpbjfieodolhbllaeff)
 
+# Short version (deploy the docker)
+under development....
+
+# Long version:
+
+## install 3rd python libaraies
+
+> pip install -r dev_requirements.txt
 
 ## compile less and require.js
 
@@ -15,6 +23,7 @@ website: [http://ohmypocket.lazyang.com/](http://ohmypocket.lazyang.com/)
 `fab compile_less` && `fab compile_js`
 
 ## run rq
+Make sure your redis is runing...
 
 `python myworker.py`
 
@@ -24,6 +33,11 @@ website: [http://ohmypocket.lazyang.com/](http://ohmypocket.lazyang.com/)
 
 `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
 
+## syncdb
+`python manage.py syncdb`
+
+## run developing server
+`python manage.py runserver`
 
 ## deploy note
 
