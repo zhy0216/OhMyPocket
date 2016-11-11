@@ -1,6 +1,6 @@
 {
     "name": "ohmypocket",
-    "version": "1",
+    "version": "1.1",
     "manifest_version": 2,
     "description": "random-read chrome extension",
     "browser_action": {
